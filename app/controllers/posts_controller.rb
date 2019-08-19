@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: [:show, :edit, :update, :delete]
+    before_action :set_post, only: [:show, :edit, :update, :destroy]
 
     def index
         @posts = Post.all
     end
 
     def show
+        @last_project = Project.find(session[:project_id])
     end
 
     def new
@@ -30,7 +31,7 @@ class PostsController < ApplicationController
 
     def destroy
         @post.delete
-        redirect_to :index
+        redirect_to project_path(session[:project_id])
     end
 
     private
