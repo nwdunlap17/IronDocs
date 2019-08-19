@@ -15,10 +15,7 @@ class PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         @post.user_id = session[:user_id]
-<<<<<<< HEAD
         @post.projects << Project.find(session[:project_id])
-=======
->>>>>>> 9c77e5bd62c5e5a0ccf9fa9d3802e2644250159b
         @post.save
         redirect_to post_path(@post)
     end
