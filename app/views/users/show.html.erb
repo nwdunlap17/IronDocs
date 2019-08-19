@@ -7,7 +7,6 @@
     <ul>
         <li>Title: <%= link_to p.title, project_path(p)%></li>
         <li>Description: <%=p.description%></li>
-        <li><%=link_to "Remove from My Projects", project_path(p), method: :delete%></li>
         <hr>
     </ul>
 <%end%>
