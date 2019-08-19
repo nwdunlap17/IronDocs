@@ -20,5 +20,13 @@ end
 end
 
 100.times do
-    User.all[rand(User.all.length)].projects << Project.all[rand(Project.all.length)]
+    User.all.sample.projects << Project.all.sample
+end
+
+50.times do
+    Post.create(title: Faker::Movies::LordOfTheRings.character, content: Faker::Music::GratefulDead.song, user_id: User.all.sample.id, urgency_level: (rand(5)+1), public_access: true)
+end
+
+Post.all.each do |post|
+    post.projects << Project.all.sample
 end
