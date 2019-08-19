@@ -1,0 +1,14 @@
+<%=form_for(@post) do |f|%>
+    <%=f.label :title%>
+    <%=f.text_field :title%>
+
+    <%=f.label :content%>
+    <%=f.text_area :content%>
+
+    <%=f.label :urgency_level%>
+    <%=f.text_area :urgency_level%>
+
+    <!--<%=f.label :user_id%>
+    <%=f.collection_select :user_id, @users, :id, :name%>-->
+    <%=f.submit%>
+<%end%>
