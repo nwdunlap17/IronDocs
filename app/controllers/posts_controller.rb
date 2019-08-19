@@ -12,14 +12,10 @@ class PostsController < ApplicationController
         @post = Post.new
     end
 
-    def new_for_project
-        @post = Post.new
-        @post.projects << params[:project_id]
-        render :new
-    end
-
     def create
         @post = Post.new(post_params)
+        @post.user_id = session[:user_id]
+        @post.projects << Project.find(session[:project_id])
         @post.save
         redirect_to post_path(@post)
     end
@@ -32,7 +28,7 @@ class PostsController < ApplicationController
         redirect_to @post
     end
 
-    def delete
+    def destroy
         @post.delete
         redirect_to :index
     end
@@ -46,4 +42,6 @@ class PostsController < ApplicationController
     def post_params
         params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
     end
+
+   
 end
