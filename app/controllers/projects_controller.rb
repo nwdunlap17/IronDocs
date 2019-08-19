@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    before_action :grab_project, only: [:show, :edit, :update]
+    before_action :grab_project, only: [:show, :edit, :updat]
     def index
         @projects = Project.all
     end
@@ -34,6 +34,14 @@ class ProjectsController < ApplicationController
         else
             render :edit
         end
+    end
+
+
+    def search_invite_user
+        # byebug
+        @project = Project.find(session[:project_id])
+        @users = User.search_by_username(params[:search])
+        render :invite
     end
 
     private
