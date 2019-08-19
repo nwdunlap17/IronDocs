@@ -6,9 +6,10 @@
     <%=f.text_area :content%>
 
     <%=f.label :urgency_level%>
-    <%=f.text_area :urgency_level%>
+    <%=f.text_field :urgency_level%>
 
-    <!--<%=f.label :user_id%>
-    <%=f.collection_select :user_id, @users, :id, :name%>-->
+    <%=f.label :public_access%>
+    <%=f.text_field :public_access%>
+    
     <%=f.submit%>
 <%end%>
