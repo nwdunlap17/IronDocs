@@ -1,4 +1,7 @@
+<%=link_to "Back to User", user_path(session[:user_id])%>
+
 <h1>Project Title: <%=@project.title%> </h1>
+
 
 <ul>
     <%@posts.each do |post|%>
