@@ -6,7 +6,7 @@
     <%=f.text_area :content%>
 
     <%=f.label :urgency_level%>
-    <%=f.text_field :urgency_level%>
+    <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%>
 
     <%=f.label :public_access%>
     <%=f.check_box :public_access%>
