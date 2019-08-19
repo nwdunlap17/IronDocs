@@ -10,8 +10,6 @@ class Project < ApplicationRecord
         end
         alpha_sort.sort do |a, b|
             b.urgency_level <=> a.urgency_level
-            # b.urgency_level <=> a.urgency_level
-            #come back to sort alphabetically
         end
     end
 end
