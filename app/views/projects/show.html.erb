@@ -1,3 +1,9 @@
-<h1> <%=@project.title%> </h1>
+<h1>Project Title: <%=@project.title%> </h1>
 
+<ul>
+    <%@posts.each do |post|%>
+        <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+    <%end%>
+</ul>
 <%=link_to "New Post", new_post_path%>
+<%=link_to "Edit Project", edit_project_path(@project)%>

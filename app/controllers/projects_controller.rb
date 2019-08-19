@@ -1,11 +1,11 @@
 class ProjectsController < ApplicationController
-    before_action :grab_project, only: [:show]
+    before_action :grab_project, only: [:show, :edit, :update]
     def index
         @projects = Project.all
     end
 
     def show
-        #@posts = @project.posts
+        @posts = @project.sort_my_posts_by_urgency
         session[:project_id] = @project.id
     end
 
@@ -22,6 +22,17 @@ class ProjectsController < ApplicationController
             redirect_to project_path(@project)
         else
             render :new
+        end
+    end
+
+    def edit
+    end
+
+    def update
+        if @project.update(project_params)
+            redirect_to project_path(@project)
+        else
+            render :edit
         end
     end
 

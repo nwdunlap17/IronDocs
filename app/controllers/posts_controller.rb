@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
-    before_action :set_post, only: [:show, :edit, :update, :delete]
+    before_action :set_post, only: [:show, :edit, :update, :destroy]
 
     def index
         @posts = Post.all
     end
 
     def show
+        @last_project = Project.find(session[:project_id])
     end
 
     def new
@@ -15,10 +16,7 @@ class PostsController < ApplicationController
     def create
         @post = Post.new(post_params)
         @post.user_id = session[:user_id]
-<<<<<<< HEAD
         @post.projects << Project.find(session[:project_id])
-=======
->>>>>>> 9c77e5bd62c5e5a0ccf9fa9d3802e2644250159b
         @post.save
         redirect_to post_path(@post)
     end
@@ -33,7 +31,7 @@ class PostsController < ApplicationController
 
     def destroy
         @post.delete
-        redirect_to :index
+        redirect_to project_path(session[:project_id])
     end
 
     private

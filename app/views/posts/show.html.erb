@@ -1,4 +1,4 @@
-
+<%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
 <h1>Title: <%=@post.title%></h1>
 
 
@@ -12,3 +12,5 @@
     <h2>Content: </h2>
     <%=@post.content%>
 </div>
+
+<%=link_to "Delete", post_path(@post), method: :delete%>
