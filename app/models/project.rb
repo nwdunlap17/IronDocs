@@ -12,4 +12,10 @@ class Project < ApplicationRecord
             b.urgency_level <=> a.urgency_level
         end
     end
+
+    def add_user(user)
+        if !self.users.include?(user)
+            self.users << user
+        end
+    end
 end

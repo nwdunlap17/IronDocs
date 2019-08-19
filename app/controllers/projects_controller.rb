@@ -1,9 +1,5 @@
 class ProjectsController < ApplicationController
-<<<<<<< HEAD
-    before_action :grab_project, only: [:show, :edit, :updat]
-=======
     before_action :grab_project, only: [:show, :edit, :update, :destroy]
->>>>>>> 2ab3b7638eca4568c2f91bd3c7a77619b7eafbe0
     def index
         @projects = Project.all
     end
@@ -42,18 +38,26 @@ class ProjectsController < ApplicationController
 
 
     def search_invite_user
-        # byebug
         @project = Project.find(session[:project_id])
         @users = User.search_by_username(params[:search])
         render :invite
     end
-    
+
+    def add_user_to_project
+        @project = Project.find(session[:project_id])
+        @user = User.find(params[:id])
+        @project.add_user(@user)
+
+        redirect_to '/projects/invite'
+    end
+
     def destroy
         if @project.users.length > 1
-            @project.users.delete_if { |user| user.id == session[:user_id]}
-        else
-            redirect_to "/users/#{session[:user_id]}"
+            @project.users.delete_all { |user| user.id == session[:user_id]}
+        else 
+            @project.delete
         end
+        redirect_to "/users/#{session[:user_id]}"
     end
 
     private

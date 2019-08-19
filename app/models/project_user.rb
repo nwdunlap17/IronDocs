@@ -4,7 +4,7 @@ class ProjectUser < ApplicationRecord
     validate :user_on_project?
 
     def user_on_project?
-        if self.project.users.any? {|user| user.id == session[:user_id]} 
+        if self.project.users.include? (self.user)
             errors.add(:user, "User is already attached to this project")
         end
     end

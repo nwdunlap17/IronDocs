@@ -9,7 +9,7 @@
 <%if @users.length > 0%>
     <ol>
     <%@users.each do |user| %>
-        <li> <%=user.username%></li>
+        <li> <%=link_to user.username, "/projects/invite/user/#{user.id}"%></li>
     <%end%>
     </ol>
 <%end%>
