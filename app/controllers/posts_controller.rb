@@ -40,4 +40,6 @@ class PostsController < ApplicationController
     def post_params
         params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
     end
+
+   
 end
