@@ -1,9 +1,5 @@
 class ProjectsController < ApplicationController
-<<<<<<< HEAD
-    before_action :grab_project, only: [:show, :edit, :updat]
-=======
     before_action :grab_project, only: [:show, :edit, :update, :destroy]
->>>>>>> 2ab3b7638eca4568c2f91bd3c7a77619b7eafbe0
     def index
         @projects = Project.all
     end
@@ -50,7 +46,7 @@ class ProjectsController < ApplicationController
     
     def destroy
         if @project.users.length > 1
-            @project.users.delete_if { |user| user.id == session[:user_id]}
+            @project.users.delete { |user| user.id == session[:user_id]}
         else
             redirect_to "/users/#{session[:user_id]}"
         end
