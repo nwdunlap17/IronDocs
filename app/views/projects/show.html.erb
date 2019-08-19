@@ -1,0 +1,7 @@
+<h1> <%=@project.title%> </h1>
+
+
+<%= form_tag new_post_path %>
+    <%=hidden_field_tag 'creator_id'%>
+    <%=submit_tag%>
+<%end%>

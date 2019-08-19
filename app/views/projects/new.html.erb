@@ -1,0 +1,7 @@
+<%=form_for @project do |p|%>
+    Title: <%=p.text_field :title%> <br>
+    Description <br> 
+    <%=p.text_area :description%> <br>
+    <%=hidden_field_tag "creator_id", value = params[:id]%>
+    <%=p.submit%>
+<%end%>

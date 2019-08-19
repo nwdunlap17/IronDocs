@@ -1,0 +1,2 @@
+class PostProjectsController < ApplicationController
+end

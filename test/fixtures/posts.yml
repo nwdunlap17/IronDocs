@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  title: MyString
+  user_id: 1
+  urgency_level: 1
+
+two:
+  content: MyText
+  title: MyString
+  user_id: 1
+  urgency_level: 1
