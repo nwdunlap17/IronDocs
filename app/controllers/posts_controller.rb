@@ -12,6 +12,12 @@ class PostsController < ApplicationController
         @post = Post.new
     end
 
+    def new_for_project
+        @post = Post.new
+        @post.projects << params[:project_id]
+        render :new
+    end
+
     def create
         @post = Post.new(post_params)
         @post.save

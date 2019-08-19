@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
 
     def show
         #@posts = @project.posts
+        session[:project_id] = @project.id
     end
 
     def new
@@ -14,8 +15,8 @@ class ProjectsController < ApplicationController
 
     def create 
         @project = Project.new(project_params)
-        @project.users << User.find(params[:creator_id])
-        byebug
+
+        @project.users << User.find(session[:user_id])
         if @project.save
             
             redirect_to project_path(@project)

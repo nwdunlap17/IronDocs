@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
     def show
         @projects = @user.projects
-        
+        session[:user_id] = @user.id
     end
 
     def new
