@@ -1,8 +1,14 @@
-<h1><%=@post.title%></h1>
+
+<h1>Title: <%=@post.title%></h1>
+
+
+<p><%=@post.public_access%></p>
+<p>Public access: <%=@post.public_access%></p>
+<p>Urgency level: <%=@post.urgency_level%></p>
 
 <%=link_to "Edit Post", edit_post_path(@post)%>
 
-<p><%=@post.public_access%></p>
 <div class="post_content">
+    <h2>Content: </h2>
     <%=@post.content%>
 </div>
