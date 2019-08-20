@@ -42,6 +42,6 @@ class Project < ApplicationRecord
     end
 
     def self.percent_public
-        1.0 * (self.num_public / self.num_projects)
+        (1.0 * self.num_public) / self.num_projects
     end
 end
