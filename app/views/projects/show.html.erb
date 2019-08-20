@@ -10,7 +10,7 @@
 </ul>
 <div>
     <p><%=link_to "New Post", new_post_path%></p>
-    </p><%=link_to "Invite Collaborator", '/projects/invite'%></p>
+    </p><%=link_to "Invite Collaborator", project_invite_path%></p>
     </p><%=link_to "Edit Project", edit_project_path(@project)%></p>
     </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete%></p>
 </div>

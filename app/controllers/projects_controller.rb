@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
     before_action :grab_project, only: [:show, :edit, :update, :destroy]
+    before_action :check_for_user_permission, except: [:index, :new, :create]
     def index
         @projects = Project.all
     end
@@ -45,10 +46,10 @@ class ProjectsController < ApplicationController
 
     def add_user_to_project
         @project = Project.find(session[:project_id])
-        @user = User.find(params[:id])
+        @user = User.find(params[:user_id])
         @project.add_user(@user)
 
-        redirect_to '/projects/invite'
+        redirect_to project_invite_path
     end
 
     def destroy
@@ -68,5 +69,13 @@ class ProjectsController < ApplicationController
 
     def project_params
         params.require(:project).permit(:title, :description)
+    end
+
+    def check_for_user_permission
+        grab_project
+        user = User.find(session[:user_id])
+        if !@project.users.include?(user)
+            redirect_to user_path(user)
+        end
     end
 end

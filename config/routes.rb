@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   # get '/users/:id/new_project', to: "projects#new", as: "new_project"
   post '/posts/new', to: "posts#new_for_project", as: "new_project_post"
 
-  get '/projects/invite', to: "projects#search_invite_user"
-  post '/projects/invite', to: "projects#search_invite_user", as: "user_invite"
-  get '/projects/invite/user/:id', to: 'projects#add_user_to_project'
+  get '/projects/:id/invite', to: "projects#search_invite_user", as: "project_invite"
+  post '/projects/:id/invite', to: "projects#search_invite_user", as: "project_invite_search"
+  get '/projects/:id/invite/user/:user_id', to: 'projects#add_user_to_project'
 
   resources :projects
   resources :users
