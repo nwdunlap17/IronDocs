@@ -12,7 +12,7 @@ Project.destroy_all
 ProjectUser.destroy_all
 
 20.times do
-    User.create(username: Faker::Name.first_name)
+    User.create(username: Faker::Name.first_name, password: "test")
 end
 
 20.times do
