@@ -36,12 +36,12 @@ class Project < ApplicationRecord
     end
 
     def self.average_num_users
-        self.all.collect do |project|
+        (self.all.collect do |project|
             project.users.length
-        end.sum / (self.num_projects * 1.0)
+        end.sum / (self.num_projects * 1.0)).round(2)
     end
 
     def self.percent_public
-        self.num_public / self.num_projects
+        1.0 * (self.num_public / self.num_projects)
     end
 end
