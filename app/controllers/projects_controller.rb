@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
     before_action :grab_project, only: [:show, :edit, :update, :destroy]
     before_action :check_for_user_permission, except: [:index, :new, :create]
+    before_action :check_for_login
     def index
         @projects = Project.all
     end

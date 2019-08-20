@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
     before_action :check_for_user_permission, except: [:index, :new, :create]
+    before_action :check_for_login
     def index
         @posts = Post.all
     end
@@ -55,5 +56,4 @@ class PostsController < ApplicationController
             redirect_to user_path(user)
         end
     end
-   
 end

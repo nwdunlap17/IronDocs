@@ -10,8 +10,7 @@
 
 <div class="post_content">
     <h2>Content: </h2>
-    <%#=@post.content%>
-    <%=@markdown.render(@post.content).html_safe%>
+    <%=sanitize @markdown.render(@post.content)%>
 </div>
 
 <%=link_to "Delete", post_path(@post), method: :delete%>
