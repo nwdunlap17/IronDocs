@@ -23,10 +23,14 @@ class Project < ApplicationRecord
         self.all.length
     end
 
-    def self.num_public
+    def self.public_projects
         self.all.select do |project|
             !!project.public
-        end.length
+        end
+    end
+
+    def self.num_public
+        self.public_projects.length
     end
 
     def self.average_num_posts
@@ -53,5 +57,19 @@ class Project < ApplicationRecord
         return projects.sort do |a,b|
             a.title <=> b.title
         end
+    end
+    
+    def self.sort_by_views
+        self.public_projects.sort_by do |project|
+            project.views
+        end
+    end
+
+    def self.top_5_public_projects
+        self.sort_by_views.reverse.take(5)
+    end
+
+    def self.most_viewed_public_project
+        self.sort_by_views.last
     end
 end

@@ -14,9 +14,13 @@ class PostsController < ApplicationController
                 redirect_to login_path
             end
         end
+        @write_privilege = write_privilege?
         @last_project = Project.find(session[:project_id])
+
         renderer = Redcarpet::Render::HTML
         @markdown = Redcarpet::Markdown.new(renderer, extensions = {})
+
+        
     end
 
     def new
@@ -77,5 +81,16 @@ class PostsController < ApplicationController
         else
             redirect_to login_path
         end
+    end
+
+    def write_privilege?
+        if logged_in?
+            user = User.find(session[:user_id])
+            project = Project.find(session[:project_id])
+            if project.users.include?(user)
+                return true
+            end
+        end
+        return false
     end
 end

@@ -6,11 +6,11 @@
 <p>Public access: <%=@post.public_access%></p>
 <p>Urgency level: <%=@post.urgency_level%></p>
 
-<%=link_to "Edit Post", edit_post_path(@post)%>
+<%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
 
 <div class="post_content">
     <h2>Content: </h2>
     <%=sanitize @markdown.render(@post.content)%>
 </div>
 
-<%=link_to "Delete", post_path(@post), method: :delete%>
+<%=link_to "Delete", post_path(@post), method: :delete unless @write_privilege == false%>
