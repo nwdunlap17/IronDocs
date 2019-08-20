@@ -1,12 +1,15 @@
 class ProjectsController < ApplicationController
-    before_action :grab_project, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_user_permission, except: [:index, :new, :create]
-    before_action :check_for_login
-    def index
-        @projects = Project.all
-    end
+    before_action :grab_project, except: [:new, :create]
+    before_action :check_for_user_permission, except: [:new, :create, :show]
+    # def index
+    #     @projects = Project.all
+    # end
 
     def show
+        if !@project.public
+            check_for_user_permission
+        end
+
         @posts = @project.sort_my_posts_by_urgency
         session[:project_id] = @project.id
     end
@@ -68,14 +71,24 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.require(:project).permit(:title, :description)
+        params.require(:project).permit(:title, :description, :public)
     end
 
     def check_for_user_permission
-        grab_project
-        user = User.find(session[:user_id])
-        if !@project.users.include?(user)
-            redirect_to user_path(user)
+        if logged_in?
+            user = User.find(session[:user_id])
+            if !@project.users.include?(user)
+                if @project.public
+                    flash[:error_message] = "You don't have permission to do that"
+                    redirect_to project_path(@project)
+                else
+                    flash[:error_message] = "You don't have permission to view this project"
+                    redirect_to user_path(user)
+                end
+            end
+        else
+            flash[:error_message] = "Please log in with valid credentials"
+            redirect_to login_path
         end
     end
 end

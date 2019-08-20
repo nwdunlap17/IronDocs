@@ -1,12 +1,18 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_user_permission, except: [:index, :new, :create]
-    before_action :check_for_login
-    def index
-        @posts = Post.all
-    end
+    before_action :check_for_user_permission, except: [:show, :new, :create]
+    # def index
+    #     @posts = Post.all
+    # end
 
     def show
+        if !@post.visitor_has_view_rights?(session[:user_id])
+            if logged_in?
+                redirect_to user_path(session[:user_id])
+            else
+                redirect_to login_path
+            end
+        end
         @last_project = Project.find(session[:project_id])
         renderer = Redcarpet::Render::HTML
         @markdown = Redcarpet::Markdown.new(renderer, extensions = {})
@@ -50,10 +56,13 @@ class PostsController < ApplicationController
     end
 
     def check_for_user_permission
-        set_post
-        user = User.find(session[:user_id])
-        if !@post.user_has_access_rights?(user)
-            redirect_to user_path(user)
+        if logged_in?
+            set_post
+            if !@post.user_has_access_rights?(session[:user_id])
+                redirect_to user_path(session[:user_id])
+            end
+        else
+            redirect_to login_path
         end
     end
 end

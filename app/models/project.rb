@@ -18,4 +18,15 @@ class Project < ApplicationRecord
             self.users << user
         end
     end
+    
+    def vistor_can_view?(user=nil)
+        if user == nil
+            return self.public
+        end
+        user_has_permissions(user)
+    end
+
+    def user_has_permissions?(user)
+        self.users.inclue?(user)
+    end
 end

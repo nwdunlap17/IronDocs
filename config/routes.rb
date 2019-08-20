@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'auth#destroy'
 
   resources :projects
-  resources :users
-  resources :posts
+  resources :users, except: [:index, :edit, :update, :destroy]
+  resources :posts, except: [:index]
   # resources :post_projects
   # resources :project_users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

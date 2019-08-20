@@ -2,6 +2,7 @@
     Title: <%=p.text_field :title%> <br>
     Description <br> 
     <%=p.text_area :description%> <br>
+    Allow anyone to view project: <%=p.check_box :public%> <br>
     <%=hidden_field_tag "creator_id", value = params[:id]%>
     <%=p.submit%>
 <%end%>

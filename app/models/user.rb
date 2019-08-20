@@ -20,4 +20,29 @@ class User < ApplicationRecord
         end
         return users
     end
+
+    def visible_projects(visitor_id)
+        if visitor_id == self.id 
+            return self.projects
+        end
+
+        visible_projects = []
+        
+        if visitor_id != nil
+            visitor = User.find(visitor_id)
+
+            self.projects.each do |project|
+                if project.public || project.users.include?(visitor)
+                    visible_projects << project
+                end
+            end
+        else
+            self.projects.each do |project|
+                if project.public
+                    visible_projects << project
+                end
+            end
+        end
+        return visible_projects
+    end
 end

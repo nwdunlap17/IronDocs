@@ -3,12 +3,29 @@ class Post < ApplicationRecord
     has_many :post_projects
     has_many :projects, through: :post_projects
 
-    def user_has_access_rights?(user)
-        if self.user_id == user.id 
+    def visitor_has_view_rights?(user_id = nil)
+        self.projects.each do |project|
+            if project.public
+                return true
+            end
+        end
+
+        if user_id != nil
+            return user_has_access_rights?(user_id)
+        end
+
+        return false
+    end
+
+    def user_has_access_rights?(user_id)
+        if user_id == nil
+            return false
+        end
+        if self.user_id == user_id 
             return true
         end
 
-        user.projects.each do |project|
+        User.find(user_id).projects.each do |project|
             if project.posts.include?(@post)
                 return true
             end
