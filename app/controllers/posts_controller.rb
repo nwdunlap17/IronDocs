@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_user_permission, except: [:show, :new, :create]
+    before_action :check_for_user_permission, except: [:show]
     # def index
     #     @posts = Post.all
     # end

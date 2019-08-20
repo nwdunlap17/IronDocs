@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
     before_action :grab_project, except: [:new, :create]
-    before_action :check_for_user_permission, except: [:new, :create, :show]
+    before_action :check_for_user_permission, except: [:show]
     # def index
     #     @projects = Project.all
     # end

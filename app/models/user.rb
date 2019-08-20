@@ -45,4 +45,8 @@ class User < ApplicationRecord
         end
         return visible_projects
     end
+    
+    def self.num_users
+        self.all.length
+    end
 end
