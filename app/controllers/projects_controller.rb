@@ -16,10 +16,9 @@ class ProjectsController < ApplicationController
 
     def create 
         @project = Project.new(project_params)
-
-        @project.users << User.find(session[:user_id])
         if @project.save
-            
+            @project.users << User.find(session[:user_id]) #This breaks if we move it before the first @project.save
+            @project.save
             redirect_to project_path(@project)
         else
             render :new

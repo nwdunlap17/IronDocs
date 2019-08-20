@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
     def show
         @projects = @user.projects
-        session[:user_id] = @user.id
     end
 
     def new
@@ -17,6 +16,7 @@ class UsersController < ApplicationController
         # if params[:passhash] == params[:passhashconfirm]    
         @user = User.new(user_params)
         if @user.save
+            session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
             render :new

@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-
+    before_action :check_for_user_permission, except: [:index, :new, :create]
     def index
         @posts = Post.all
     end
@@ -44,5 +44,12 @@ class PostsController < ApplicationController
         params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
     end
 
+    def check_for_user_permission
+        set_post
+        user = User.find(session[:user_id])
+        if !@post.user_has_access_rights?(user)
+            redirect_to user_path(user)
+        end
+    end
    
 end
