@@ -15,6 +15,7 @@
           <% if logged_in? %>
             <li>
               <%= link_to "Log out", logout_path, method: :delete %>
+              <%= link_to "My Profile", user_path(session[:user_id])%>
             </li>
           <% end %>
       </ul>
