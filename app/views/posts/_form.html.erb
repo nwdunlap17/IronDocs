@@ -1,15 +1,17 @@
 <%=form_for(@post) do |f|%>
-    <%=f.label :title%>
-    <%=f.text_field :title%>
-
-    <%=f.label :content%>
-    <%=f.text_area :content%>
+    <%#=f.label :title%>
+    <%=f.text_field :title%> <br>
 
     <%=f.label :urgency_level%>
-    <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%>
+    <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%> 
 
-    <%=f.label :public_access%>
-    <%=f.check_box :public_access%>
+    <%#=f.label :public_access%>
+    Anyone can edit: <%=f.check_box :public_access%> <br>
+ 
+    <%#=f.label :content%>
+    <%=f.text_area :content, cols: "100", rows: "45"%> <br>
+
+
     
 
     <%=f.submit%>

@@ -7,10 +7,14 @@ class PostsController < ApplicationController
 
     def show
         @last_project = Project.find(session[:project_id])
+        renderer = Redcarpet::Render::HTML
+        @markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     end
 
     def new
         @post = Post.new
+        @post.title = "New Post"
+        @post.public_access = true
     end
 
     def create
