@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_181704) do
+ActiveRecord::Schema.define(version: 2019_08_20_221522) do
 
   create_table "post_projects", force: :cascade do |t|
     t.integer "post_id"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_181704) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "public"
+    t.integer "views", default: 0
   end
 
   create_table "users", force: :cascade do |t|
