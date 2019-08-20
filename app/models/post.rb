@@ -16,4 +16,14 @@ class Post < ApplicationRecord
 
         return false
     end
+
+    def self.num_posts
+        self.all.length
+    end
+
+    def self.average_word_count
+        (self.all.collect do |post|
+            post.content.split(" ").length
+        end.sum / (self.num_posts * 1.0)).round(2)
+    end
 end

@@ -20,4 +20,8 @@ class User < ApplicationRecord
         end
         return users
     end
+
+    def self.num_users
+        self.all.length
+    end
 end

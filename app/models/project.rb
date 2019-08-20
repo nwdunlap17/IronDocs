@@ -18,4 +18,30 @@ class Project < ApplicationRecord
             self.users << user
         end
     end
+
+    def self.num_projects
+        self.all.length
+    end
+
+    def self.num_public
+        # self.all.select do |project|
+        #     !!project.public
+        # end.length
+    end
+
+    def self.average_num_posts
+        self.all.collect do |project|
+            project.posts.length
+        end.sum / (self.num_projects * 1.0)
+    end
+
+    def self.average_num_users
+        self.all.collect do |project|
+            project.users.length
+        end.sum / (self.num_projects * 1.0)
+    end
+
+    def self.percent_public
+        # self.num_public / self.num_projects
+    end
 end
