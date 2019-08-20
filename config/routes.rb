@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   post '/projects/invite', to: "projects#search_invite_user", as: "user_invite"
   get '/projects/invite/user/:id', to: 'projects#add_user_to_project'
 
+  get '/login', to: 'auth#login'
+  post '/login', to: 'auth#verify'
+  
   resources :projects
   resources :users
   resources :posts

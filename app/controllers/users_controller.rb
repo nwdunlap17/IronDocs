@@ -14,17 +14,17 @@ class UsersController < ApplicationController
     end
 
     def create
-        if params[:passhash] == params[:passhashconfirm]    
-            @user = User.new(user_params)
-            if @user.save
-                redirect_to user_path(@user)
-            else
-                render :new
-            end
+        # if params[:passhash] == params[:passhashconfirm]    
+        @user = User.new(user_params)
+        if @user.save
+            redirect_to user_path(@user)
         else
-            @user = User.new(user_params)
             render :new
         end
+        # else
+        #     @user = User.new(user_params)
+        #     render :new
+        # end
     end
 
     private
@@ -34,15 +34,15 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:username, :passhash)
+        params.require(:user).permit(:username, :password, :password_confirmation)
     end
 
-    def passwordHash
-        if params[:password][:first] 
-            params[:user][:passhash] = "#{params[:password][:first].reverse}"
-            params[:user][:passhashconfirm] = "#{params[:password][:confirm].reverse}"
-        else
-            params[:user][:passhash] = "#{params[:password].reverse}"
-        end
-    end
+    # def passwordHash
+    #     if params[:password][:first] 
+    #         params[:user][:passhash] = "#{params[:password][:first].reverse}"
+    #         params[:user][:passhashconfirm] = "#{params[:password][:confirm].reverse}"
+    #     else
+    #         params[:user][:passhash] = "#{params[:password].reverse}"
+    #     end
+    # end
 end
