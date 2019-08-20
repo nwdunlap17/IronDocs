@@ -1,11 +1,14 @@
 class ProjectsController < ApplicationController
-    before_action :grab_project, only: [:show]
+    before_action :grab_project, only: [:show, :edit, :update, :destroy]
+    before_action :check_for_user_permission, except: [:index, :new, :create]
+    before_action :check_for_login
     def index
         @projects = Project.all
     end
 
     def show
-        #@posts = @project.posts
+        @posts = @project.sort_my_posts_by_urgency
+        session[:project_id] = @project.id
     end
 
     def new
@@ -14,14 +17,48 @@ class ProjectsController < ApplicationController
 
     def create 
         @project = Project.new(project_params)
-        @project.users << User.find(params[:creator_id])
-        byebug
         if @project.save
-            
+            @project.users << User.find(session[:user_id]) #This breaks if we move it before the first @project.save
+            @project.save
             redirect_to project_path(@project)
         else
             render :new
         end
+    end
+
+    def edit
+    end
+
+    def update
+        if @project.update(project_params)
+            redirect_to project_path(@project)
+        else
+            render :edit
+        end
+    end
+
+
+    def search_invite_user
+        @project = Project.find(session[:project_id])
+        @users = User.search_by_username(params[:search])
+        render :invite
+    end
+
+    def add_user_to_project
+        @project = Project.find(session[:project_id])
+        @user = User.find(params[:user_id])
+        @project.add_user(@user)
+
+        redirect_to project_invite_path
+    end
+
+    def destroy
+        if @project.users.length > 1
+            @project.users.delete_all { |user| user.id == session[:user_id]}
+        else 
+            @project.delete
+        end
+        redirect_to "/users/#{session[:user_id]}"
     end
 
     private
@@ -32,5 +69,13 @@ class ProjectsController < ApplicationController
 
     def project_params
         params.require(:project).permit(:title, :description)
+    end
+
+    def check_for_user_permission
+        grab_project
+        user = User.find(session[:user_id])
+        if !@project.users.include?(user)
+            redirect_to user_path(user)
+        end
     end
 end

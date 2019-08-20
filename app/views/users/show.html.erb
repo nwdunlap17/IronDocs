@@ -4,7 +4,10 @@
 
 <ul>
 <%@projects.each do |p|%>
-    <li> <%= link_to p.title, project_path(p)%> 
-    - <%=p.description%> </li>
+    <ul>
+        <li>Title: <%= link_to p.title, project_path(p)%></li>
+        <li>Description: <%=p.description%></li>
+        <hr>
+    </ul>
 <%end%>
 </ul>

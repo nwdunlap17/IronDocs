@@ -1,0 +1,11 @@
+<%=flash[:error_message]%>
+
+<%=form_for :login do |f|%>
+    <%=f.label :username%>
+    <%=f.text_field :username%>
+    <%=f.label :password%>
+    <%=f.password_field :password%>
+    <%=f.submit%>
+<%end%>
+<br>
+<%=link_to "Create an Account", 'users/new'%>
