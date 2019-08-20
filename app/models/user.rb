@@ -2,6 +2,7 @@ class User < ApplicationRecord
     has_many :project_users
     has_many :projects, through: :project_users
     validates :username, uniqueness: true
+    has_secure_password
 
     def self.list_alphabetically
         users = User.all.sort do |a,b|
