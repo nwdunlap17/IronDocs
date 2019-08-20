@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
     before_action :set_post, only: [:show, :edit, :update, :destroy]
-    before_action :check_for_user_permission, except: [:show]
+    before_action :check_for_user_permission, except: [:show, :new, :create]
+    before_action :check_if_user_can_make_post, only: [:new, :create]
     # def index
     #     @posts = Post.all
     # end
@@ -60,6 +61,18 @@ class PostsController < ApplicationController
             set_post
             if !@post.user_has_access_rights?(session[:user_id])
                 redirect_to user_path(session[:user_id])
+            end
+        else
+            redirect_to login_path
+        end
+    end
+
+    def check_if_user_can_make_post
+        if logged_in?
+            user = User.find(session[:user_id])
+            project = Project.find(session[:project_id])
+            if !project.users.include?(user)
+                redirect_to user_path(user)
             end
         else
             redirect_to login_path
