@@ -44,4 +44,14 @@ class Project < ApplicationRecord
     def self.percent_public
         ((100.0 * self.num_public) / self.num_projects).round(0)
     end
+
+    def self.search_by_title(search)
+        search = search.downcase
+        projects = Project.all.select do |project|
+            project.public && project.title.downcase.include?(search)
+        end
+        return projects.sort do |a,b|
+            a.title <=> b.title
+        end
+    end
 end
