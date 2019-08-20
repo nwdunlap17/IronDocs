@@ -8,7 +8,8 @@ Rails.application.routes.draw do
 
   get '/login', to: 'auth#login'
   post '/login', to: 'auth#verify'
-  
+  delete '/logout', to: 'auth#destroy'
+
   resources :projects
   resources :users
   resources :posts
