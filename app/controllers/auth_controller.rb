@@ -2,6 +2,10 @@ class AuthController < ApplicationController
 
     def  login
     end
+    
+    def  public_search
+      render :login
+    end
 
     def verify
       @user = User.find_by(username: params[:login][:username])

@@ -62,4 +62,13 @@ class Project < ApplicationRecord
     def self.most_viewed_public_project
         self.sort_by_views.last
     end
+    def self.search_by_title(search)
+        search = search.downcase
+        projects = Project.all.select do |project|
+            project.public && project.title.downcase.include?(search)
+        end
+        return projects.sort do |a,b|
+            a.title <=> b.title
+        end
+    end
 end

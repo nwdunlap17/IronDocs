@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   post '/login', to: 'auth#verify'
   delete '/logout', to: 'auth#destroy'
 
+  get '/', to: 'home#home'
+  get '/home', to: 'home#home', as: 'home'
+  post '/home/public_search', to: 'home#public_search', as: 'public_search'
+
   resources :projects
   resources :users, except: [:index, :edit, :update, :destroy]
   resources :posts, except: [:index]

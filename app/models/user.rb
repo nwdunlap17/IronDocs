@@ -21,6 +21,19 @@ class User < ApplicationRecord
         return users
     end
 
+    def self.search_public_by_username(search)
+        users = User.search_by_username(search)
+        users.select do |user|
+            judgement = false
+            user.projects.each do |project|
+                if project.public
+                    judgement = true
+                end
+            end
+            judgement
+        end
+    end
+
     def visible_projects(visitor_id)
         if visitor_id == self.id 
             return self.projects
