@@ -24,9 +24,9 @@ class Project < ApplicationRecord
     end
 
     def self.num_public
-        # self.all.select do |project|
-        #     !!project.public
-        # end.length
+        self.all.select do |project|
+            !!project.public
+        end.length
     end
 
     def self.average_num_posts
@@ -42,6 +42,6 @@ class Project < ApplicationRecord
     end
 
     def self.percent_public
-        # self.num_public / self.num_projects
+        self.num_public / self.num_projects
     end
 end
