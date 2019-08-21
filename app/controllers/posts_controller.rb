@@ -7,6 +7,7 @@ class PostsController < ApplicationController
     # end
 
     def show
+        byebug
         session[:project_id] = @post.projects[0].id
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
