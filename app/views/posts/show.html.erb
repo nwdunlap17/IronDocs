@@ -4,8 +4,20 @@
 
 <p><%=@post.public_access%></p>
 <p>Public access: <%=@post.public_access%></p>
-<p>Urgency level: <%=@post.urgency_level%></p>
-
+<p>Urgency level: 
+    <% case @post.urgency_level%>
+        <%when 1%>
+            None
+        <%when 2%>
+            Low
+        <%when 3%>
+            Medium
+        <%when 4%>
+            High
+        <%when 5%>
+            Urgent
+    <%end%>
+</p>
 <%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
 
 <div class="post_content">

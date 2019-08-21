@@ -3,7 +3,13 @@
 <%end%>
 
 <h1>Title: <%=@project.title%> </h1>
-<h3>Description: <%=@project.description%></h3>
+<h3>Description:
+<%if !(@project.description.empty?)%>
+    <%=@project.description%></h3>
+<%else%>
+    This project does not have a description!
+<%end%>
+</h3>
 <h3>Collaborators</h2>
 <ul>
     <%@project.users.each do |user|%>
