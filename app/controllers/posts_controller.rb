@@ -46,6 +46,7 @@ class PostsController < ApplicationController
 
     def update
         @post.update(post_params)
+        @post.projects << Project.find(params[:post][:project_ids])
         redirect_to @post
     end
 
@@ -62,7 +63,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access, :project_ids)
+        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
     end
 
     def check_for_user_permission

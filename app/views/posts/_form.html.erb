@@ -11,8 +11,9 @@
     <%#=f.label :content%>
     <%=f.text_area :content, cols: "100", rows: "45"%> <br>
 
-
-    Add to existing project: <%=f.collection_select :project_ids, @projects, :id, :title%>
+    <%if !(@post.id == nil) %>
+        Add to existing project: <%=f.collection_select :project_ids, @projects, :id, :title%>
+    <%end%>
 
     <%=f.submit%>
 <%end%>
