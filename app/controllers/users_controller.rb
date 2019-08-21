@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
     before_action :grab_user, only: [:show]
-    before_action :check_for_login, except: [:new, :create]
-    def index
-        @users = User.all
-    end
+    before_action :check_for_login, except: [:new, :create, :show]
+    # def index
+    #     @users = User.all
+    # end
 
     def show
-        @projects = @user.projects
+        @projects = @user.visible_projects(session[:user_id])
+        cookies[:last_user_id] = @user.id
     end
 
     def new
@@ -19,6 +20,8 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
+            
+            flash[:alert_message] = "This username is taken"
             render :new
         end
     end

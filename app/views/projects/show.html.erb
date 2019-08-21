@@ -1,6 +1,30 @@
-<%=link_to "Back to User", user_path(session[:user_id])%>
+<%if !cookies[:last_user_id] || cookies[:last_user_id] == session[:user_id] %>
+    <%=link_to "Back to User", user_path(cookies[:last_user_id])%>
+<%end%>
 
+<%=flash[:alert_message]%>
 <h1>Project Title: <%=@project.title%> </h1>
+
+<h3>Description:
+<%if !(@project.description.empty?)%>
+    <%=@project.description%></h3>
+<%else%>
+    This project does not have a description!
+<%end%>
+</h3>
+
+<h3>Posts</h3>
+<%if !@posts.empty?%>
+    <ul>
+        <%@posts.each do |post|%>
+            <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+        <%end%>
+    </ul>
+<%else%>
+    <p>You don't have any posts yet!</p>
+<%end%>
+
+
 <h3>Collaborators</h2>
 <ul>
     <%@project.users.each do |user|%>
@@ -8,16 +32,10 @@
     <%end%>
 </ul>
 
-<h3>Posts</h3>
-<ul>
-    <%@posts.each do |post|%>
-        <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
-    <%end%>
-</ul>
-<div>
-    <p><%=link_to "New Post", new_post_path%></p>
-    </p><%=link_to "Invite Collaborator", project_invite_path%></p>
-    </p><%=link_to "Edit Project", edit_project_path(@project)%></p>
-    </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete%></p>
-</div>
 
+<div>
+    <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>
+    </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
+    </p><%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%></p>
+    </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete unless @write_privilege == false%></p>
+</div>

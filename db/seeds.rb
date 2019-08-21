@@ -16,7 +16,7 @@ ProjectUser.destroy_all
 end
 
 20.times do
-    Project.create(title: "Project #{Faker::Color.color_name}", description: "#{Faker::Food.description}")
+    Project.create(title: "Project #{Faker::Color.color_name}", description: "#{Faker::Food.description}", public: true)
 end
 
 i = 0

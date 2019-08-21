@@ -12,11 +12,19 @@
   <body>
   <nav>
       <ul class="nav">
-          <li>
-            <%= link_to "Log out", logout_path, method: :delete %>
-          </li>
+          <li><%= link_to "Home", home_path%></li>
+          <% if logged_in? %>
+            <li><%= link_to "Log out", logout_path, method: :delete %></li>
+            <li><%= link_to "My Profile", user_path(session[:user_id])%></li>
+          <%else%>
+            <li><%=link_to "Sign In", '/login'%></li>
+          <% end %>
+          <%if !!cookies[:last_user_id] && cookies[:last_user_id].to_i != session[:user_id] %>
+            <li><%=link_to "Back to #{User.get_name(cookies[:last_user_id])}", user_path(cookies[:last_user_id])%></li>
+          <%end%>
       </ul>
-    </nav>
-    <%= yield %>
+  </nav>
+    <h1>IronDocs</h1>
+      <%= yield %>
   </body>
 </html>

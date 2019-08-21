@@ -6,13 +6,48 @@
     <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%> 
 
     <%#=f.label :public_access%>
-    Anyone can edit: <%=f.check_box :public_access%> <br>
+    Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%> <br>
  
     <%#=f.label :content%>
     <%=f.text_area :content, cols: "100", rows: "45"%> <br>
 
-
-    
+    <%if !(@post.id == nil) %>
+        Add to existing project: <%=f.collection_select :project_ids, @projects, :id, :title%>
+    <%end%>
 
     <%=f.submit%>
 <%end%>
+
+<div class="markdown_key">
+    <table>
+        <caption><a href="https://daringfireball.net/projects/markdown/basics">Markdown</a> Key</caption>
+            <tr>
+                <th>Italics</th>
+                <td>*italics*</td>
+            </tr>
+            <tr>
+                <th>Bold</th>
+                <td>**bold**</td>
+            </tr>
+            <tr>
+                <th>Headers</th>
+                <td># Header 1 #, ## Header 2 ##</td>
+            </tr>
+            <tr>
+                <th>Numbered List</th>
+                <td>1. Numbered</td>
+            </tr>
+            <tr>
+                <th>Bullet List</th>
+                <td>*   Bullets!</td>
+            </tr>
+            <tr>
+                <th>Horizontal Rule</th>
+                <td>---</td>
+            </tr>
+            <tr>
+                <th>Images</th>
+                <td>![Image description](path/image.jpg "Title of Image")</td>
+            </tr>
+    </table>
+</div>

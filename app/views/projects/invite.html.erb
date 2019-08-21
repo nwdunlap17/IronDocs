@@ -1,4 +1,5 @@
-<%=link_to "Back to #{@project.title} Directory", project_path(@project) %>
+<%=link_to "Back to #{@project.title} Directory", project_path(@project) %> <br>
+<%=flash[:alert_message]%>
 <h1>Invite Collaborators</h1>
 
 <%=form_tag project_invite_search_path do %>
