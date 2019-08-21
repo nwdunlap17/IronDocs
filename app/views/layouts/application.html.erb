@@ -12,11 +12,12 @@
   <body>
   <nav>
       <ul class="nav">
+          <li><%= link_to "Home", home_path%></li>
           <% if logged_in? %>
             <li><%= link_to "Log out", logout_path, method: :delete %></li>
             <li><%= link_to "My Profile", user_path(session[:user_id])%></li>
           <%else%>
-            <li><%= link_to "Home", home_path%></li>
+            <li><%=link_to "Sign In", '/login'%></li>
           <% end %>
       </ul>
   </nav>

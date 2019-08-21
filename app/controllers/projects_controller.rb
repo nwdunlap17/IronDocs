@@ -9,6 +9,13 @@ class ProjectsController < ApplicationController
         if !@project.public
             check_for_user_permission
         end
+        @write_privilege = check_for_write_privilege
+        
+        if cookies[:last_project_visited].to_i != @project.id
+            @project.views += 1
+            @project.save
+        end
+        cookies[:last_project_visited] = @project.id
 
         @posts = @project.sort_my_posts_by_urgency
         session[:project_id] = @project.id
@@ -91,5 +98,15 @@ class ProjectsController < ApplicationController
             flash[:error_message] = "Please log in with valid credentials"
             redirect_to login_path
         end
+    end
+
+    def check_for_write_privilege
+        if logged_in?
+            user = User.find(session[:user_id])
+            if @project.users.include?(user)
+                return true
+            end
+        end
+        return false
     end
 end

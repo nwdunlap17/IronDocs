@@ -11,7 +11,7 @@
     <li>Top 5 viewed public projects:</li>
     <ul>
         <%@top_5_public_projects.each do |project|%>
-        <li><%=link_to project.title, project_path(project)%>, views: <%=project.views%></li>
+        <li><%=link_to project.title, project_path(project)%> - views: <%=project.views%></li>
         <%end%>
     </ul>
 </ul>

@@ -49,6 +49,16 @@ class Project < ApplicationRecord
         ((100.0 * self.num_public) / self.num_projects).round(0)
     end
 
+    def self.search_by_title(search)
+        search = search.downcase
+        projects = Project.all.select do |project|
+            project.public && project.title.downcase.include?(search)
+        end
+        return projects.sort do |a,b|
+            a.title <=> b.title
+        end
+    end
+    
     def self.sort_by_views
         self.public_projects.sort_by do |project|
             project.views
@@ -61,14 +71,5 @@ class Project < ApplicationRecord
 
     def self.most_viewed_public_project
         self.sort_by_views.last
-    end
-    def self.search_by_title(search)
-        search = search.downcase
-        projects = Project.all.select do |project|
-            project.public && project.title.downcase.include?(search)
-        end
-        return projects.sort do |a,b|
-            a.title <=> b.title
-        end
     end
 end
