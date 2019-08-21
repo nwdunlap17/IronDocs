@@ -50,7 +50,8 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.user_id = session[:user_id]
         @post.projects << Project.find(session[:project_id])
-        @post.save
+        @post.tap(&:save) #If this ever breaks again, just uncomment the byebug and run @post.errors
+        # byebug
         redirect_to post_path(@post)
     end
 
@@ -62,6 +63,8 @@ class PostsController < ApplicationController
 
     def update
         @post.update(post_params)
+        @post.tap(&:save)
+        # byebug
         redirect_to @post
     end
 
@@ -78,7 +81,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
+        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access, :alert_date)
     end
 
     def check_for_user_permission

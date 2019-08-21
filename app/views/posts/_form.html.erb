@@ -5,6 +5,8 @@
     <%=f.label :urgency_level%>
     <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%> 
 
+    
+    Set reminder: <%=f.date_field :alert_date%><br>
     <%#=f.label :public_access%>
     Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%> <br>
  
