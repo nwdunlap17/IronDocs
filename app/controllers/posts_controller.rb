@@ -7,6 +7,8 @@ class PostsController < ApplicationController
     # end
 
     def show
+        @user = set_user
+        @projects = @user.projects
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
                 flash[:alert_message] = "You don't have access to this post"
@@ -23,6 +25,15 @@ class PostsController < ApplicationController
         @markdown = Redcarpet::Markdown.new(renderer, extensions = {})
 
         
+    end
+
+    def copy
+        @copy_post = @post.dup
+        @copy_post.user_id = session[:user_id]
+        @copy_post.save
+        @copy_post.projects << Project.find(params[:copy][:project_id])
+        flash[:alert_message] = "You have successfully copied #{@copy_post.title} to the #{Project.find(params[:copy][:project_id]).title} directory."
+        redirect_to post_path(@copy_post)
     end
 
     def new
@@ -50,7 +61,6 @@ class PostsController < ApplicationController
 
     def update
         @post.update(post_params)
-        @post.projects << Project.find(params[:post][:project_ids])
         redirect_to @post
     end
 
