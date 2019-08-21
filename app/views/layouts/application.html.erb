@@ -19,6 +19,9 @@
           <%else%>
             <li><%=link_to "Sign In", '/login'%></li>
           <% end %>
+          <%if !!cookies[:last_user_id] && cookies[:last_user_id].to_i != session[:user_id] %>
+            <li><%=link_to "Back to #{User.get_name(cookies[:last_user_id])}", user_path(cookies[:last_user_id])%></li>
+          <%end%>
       </ul>
   </nav>
     <h1>IronDocs</h1>

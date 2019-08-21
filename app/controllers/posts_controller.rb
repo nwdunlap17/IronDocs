@@ -9,8 +9,10 @@ class PostsController < ApplicationController
     def show
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
+                flash[:alert_message] = "You don't have access to this post"
                 redirect_to user_path(session[:user_id])
             else
+                flash[:alert_message] = "Log in to view this post"
                 redirect_to login_path
             end
         end
@@ -67,9 +69,11 @@ class PostsController < ApplicationController
         if logged_in?
             set_post
             if !@post.user_has_access_rights?(session[:user_id])
+                flash[:alert_message] = "You don't have permission to edit this post"
                 redirect_to user_path(session[:user_id])
             end
         else
+            flash[:alert_message] = "Log in to edit this post"
             redirect_to login_path
         end
     end
@@ -79,9 +83,12 @@ class PostsController < ApplicationController
             user = User.find(session[:user_id])
             project = Project.find(session[:project_id])
             if !project.users.include?(user)
+                flash[:alert_message] = "You don't have permission to make a post here"
                 redirect_to user_path(user)
             end
         else
+
+            flash[:alert_message] = "Log in to make a post"
             redirect_to login_path
         end
     end

@@ -1,7 +1,4 @@
-<%if !cookies[:last_user_id] || cookies[:last_user_id] == session[:user_id] %>
-    <%=link_to "Back to User", user_path(cookies[:last_user_id])%>
-<%end%>
-
+<%=flash[:alert_message]%>
 <h1>Project Title: <%=@project.title%> </h1>
 
 

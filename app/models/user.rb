@@ -58,8 +58,47 @@ class User < ApplicationRecord
         end
         return visible_projects
     end
+
+    def self.get_name(id)
+        return User.find(id).username
+    end
     
     def self.num_users
         self.all.length
+    end
+
+    def search_users_by_username_giving_priority_to_friends(search)
+        if search == nil
+            search = ''
+        end
+        search = search.downcase
+        friends = {}
+
+        userslist = User.all.select do |user|
+            friends[user.id] = 0
+            user.username.downcase.include?(search) && (user != self)
+        end
+
+        userslist = userslist.sort do |a,b|
+            a.username <=> b.username
+        end
+
+        self.projects.each do |project|
+            project.users.each do |user|
+                friends[user.id] += 1
+            end
+        end
+
+        userslist = userslist.sort do |a,b|
+            friends[b.id] <=> friends[a.id]
+        end
+
+        if search == ''
+            userslist = userslist.select do |user|
+                friends[user.id] > 0
+            end
+        end
+
+        return userslist
     end
 end
