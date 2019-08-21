@@ -21,6 +21,7 @@ class Project < ApplicationRecord
         return false
     end
 
+
     def self.num_projects
         self.all.length
     end

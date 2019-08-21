@@ -72,7 +72,8 @@ class ProjectsController < ApplicationController
 
     def destroy
         if @project.users.length > 1
-            @project.users.delete_all { |user| user.id == session[:user_id]}
+            byebug
+            @project.users.delete(session[:user_id])
         else 
             @project.delete
         end

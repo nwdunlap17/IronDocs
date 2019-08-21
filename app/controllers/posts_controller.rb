@@ -30,6 +30,9 @@ class PostsController < ApplicationController
         @post.title = "New Post"
         @post.public_access = true
         @change_access_privilege = true
+        
+        @user = set_user
+        @projects = @user.projects
     end
 
     def create
@@ -41,12 +44,14 @@ class PostsController < ApplicationController
     end
 
     def edit
+        @user = set_user
+        @projects = @user.projects
         @change_access_privilege = (@post.user_id == session[:user_id])
-        byebug
     end
 
     def update
         @post.update(post_params)
+        @post.projects << Project.find(params[:post][:project_ids])
         redirect_to @post
     end
 
@@ -56,6 +61,7 @@ class PostsController < ApplicationController
     end
 
     private
+
 
     def set_post
         @post = Post.find(params[:id])
