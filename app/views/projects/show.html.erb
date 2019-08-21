@@ -17,7 +17,20 @@
 <%if !@posts.empty?%>
     <ul>
         <%@posts.each do |post|%>
-            <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+            <li><%=link_to post.title, post_path(post)%> - Urgency: 
+            <% case post.urgency_level%>
+                <%when 1%>
+                    None
+                <%when 2%>
+                    Low
+                <%when 3%>
+                    Medium
+                <%when 4%>
+                    High
+                <%when 5%>
+                    Urgent
+            <%end%>
+            </li>
         <%end%>
     </ul>
 <%else%>
@@ -37,5 +50,5 @@
     <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>
     </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
     </p><%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%></p>
-    </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete unless @write_privilege == false%></p>
+    </p><%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%></p>
 </div>

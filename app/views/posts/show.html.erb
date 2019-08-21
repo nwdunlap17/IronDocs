@@ -1,4 +1,5 @@
 <%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
+<%=flash[:alert_message]%>
 <h1>Title: <%=@post.title%></h1>
 
 
@@ -19,10 +20,13 @@
     <%end%>
 </p>
 <%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
-
+<%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
+    Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
+    <%=f.submit "Copy"%>
+<%end%>
 <div class="post_content">
     <h2>Content: </h2>
     <%=sanitize @markdown.render(@post.content)%>
 </div>
 
-<%=link_to "Delete", post_path(@post), method: :delete unless @write_privilege == false%>
+<%=link_to "Delete", post_path(@post), data: {confirm: "Are you sure you would like to delete this post?"},method: :delete unless @write_privilege == false%>
