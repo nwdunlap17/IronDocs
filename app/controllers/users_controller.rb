@@ -6,7 +6,8 @@ class UsersController < ApplicationController
     # end
 
     def show
-        @projects = @user.visible_projects(session[:user_id])
+        @posts = @user.search_my_posts_by_name_and_priority(params[:search])
+        @projects = @user.search_my_projects_by_name(params[:search])
         cookies[:last_user_id] = @user.id
     end
 

@@ -27,9 +27,9 @@ class Post < ApplicationRecord
         if self.user_id == user_id 
             return true
         end
-
+        
         User.find(user_id).projects.each do |project|
-            if project.posts.include?(@post)
+            if project.posts.include?(self)
                 return true
             end
         end

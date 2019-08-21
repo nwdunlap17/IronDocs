@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get '/home', to: 'home#home', as: 'home'
   post '/home/public_search', to: 'home#public_search', as: 'public_search'
 
+  post '/users/:id/search', to:'users#show', as: 'search_own_files'
+
   resources :projects
   resources :users, except: [:index, :edit, :update, :destroy]
   resources :posts, except: [:index]

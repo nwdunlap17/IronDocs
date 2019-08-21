@@ -1,6 +1,28 @@
 <%=flash[:alert_message]%>
 <h1><%=@user.username%>'s profile page</h1>
 
+<%if session[:user_id] == @user.id%>
+
+    <%=form_tag search_own_files_path(@user) do %>
+        Search: <%=text_field_tag "search"%>
+        <%=submit_tag "Apply Search"%>
+    <%end%>
+
+    <h3> Your Posts </h3> <br>
+    
+    <%if !@posts.empty?%>
+        <ul>
+            <%@posts.each do |post|%>
+                <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+            <%end%>
+        </ul>
+    <%else%>
+        <p>You don't have any posts yet!</p>
+    <%end%>
+
+    <h3> Your Projects</h3> <br>
+<%end%>
+
 <%=link_to "New Project", new_project_path%>
 
 <ul>
