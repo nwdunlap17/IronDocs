@@ -25,4 +25,4 @@
     <%=sanitize @markdown.render(@post.content)%>
 </div>
 
-<%=link_to "Delete", post_path(@post), method: :delete unless @write_privilege == false%>
+<%=link_to "Delete", post_path(@post), data: {confirm: "Are you sure you would like to delete this post?"},method: :delete unless @write_privilege == false%>
