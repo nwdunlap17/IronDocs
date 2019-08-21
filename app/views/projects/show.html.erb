@@ -2,7 +2,9 @@
     <%=link_to "Back to User", user_path(cookies[:last_user_id])%>
 <%end%>
 
-<h1>Title: <%=@project.title%> </h1>
+<%=flash[:alert_message]%>
+<h1>Project Title: <%=@project.title%> </h1>
+
 <h3>Description:
 <%if !(@project.description.empty?)%>
     <%=@project.description%></h3>
@@ -10,12 +12,6 @@
     This project does not have a description!
 <%end%>
 </h3>
-<h3>Collaborators</h2>
-<ul>
-    <%@project.users.each do |user|%>
-        <li><%=user.username%></li>
-    <%end%>
-</ul>
 
 <h3>Posts</h3>
 <%if !@posts.empty?%>
@@ -25,10 +21,17 @@
         <%end%>
     </ul>
 <%else%>
-    <p>You don't have any projects yet!</p>
+    <p>You don't have any posts yet!</p>
 <%end%>
-<%=flash[:alert_message]%>
-<h1>Project Title: <%=@project.title%> </h1>
+
+
+<h3>Collaborators</h2>
+<ul>
+    <%@project.users.each do |user|%>
+        <li><%=user.username%></li>
+    <%end%>
+</ul>
+
 
 <div>
     <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>

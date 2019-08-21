@@ -29,12 +29,9 @@ class PostsController < ApplicationController
         @post = Post.new
         @post.title = "New Post"
         @post.public_access = true
-<<<<<<< HEAD
         @user = set_user
         @projects = @user.projects
-=======
         @change_access_privilege = true
->>>>>>> 23d7de7ce34e5ca824f99400e68b345b4d773e4f
     end
 
     def create
