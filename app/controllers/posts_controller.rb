@@ -27,6 +27,7 @@ class PostsController < ApplicationController
         @post = Post.new
         @post.title = "New Post"
         @post.public_access = true
+        @change_access_privilege = true
     end
 
     def create
@@ -38,6 +39,8 @@ class PostsController < ApplicationController
     end
 
     def edit
+        @change_access_privilege = (@post.user_id == session[:user_id])
+        byebug
     end
 
     def update
@@ -85,10 +88,14 @@ class PostsController < ApplicationController
 
     def write_privilege?
         if logged_in?
-            user = User.find(session[:user_id])
-            project = Project.find(session[:project_id])
-            if project.users.include?(user)
-                return true
+            if @post.public_access
+                user = User.find(session[:user_id])
+                project = Project.find(session[:project_id])
+                if project.users.include?(user)
+                    return true
+                end
+            else
+                return @post.user_id == session[:user_id]
             end
         end
         return false

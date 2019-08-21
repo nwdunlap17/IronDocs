@@ -3,17 +3,12 @@
 <%end%>
 
 <h1>Project Title: <%=@project.title%> </h1>
-<h3>Collaborators</h2>
-<ul>
-    <%@project.users.each do |user|%>
-        <li><%=user.username%></li>
-    <%end%>
-</ul>
+
 
 <h3>Posts</h3>
 <ul>
     <%@posts.each do |post|%>
-        <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+            <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
     <%end%>
 </ul>
 <div>
@@ -23,3 +18,9 @@
     </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete unless @write_privilege == false%></p>
 </div>
 
+<h3>Collaborators</h2>
+<ul>
+    <%@project.users.each do |user|%>
+        <li><%=user.username%></li>
+    <%end%>
+</ul>
