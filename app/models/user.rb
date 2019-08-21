@@ -163,4 +163,10 @@ class User < ApplicationRecord
 
         return userslist
     end
+
+    def update_post_alert_dates
+        self.projects.each do |project|
+            project.update_post_alert_dates
+        end
+    end
 end

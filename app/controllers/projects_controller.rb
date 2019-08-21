@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
     # end
 
     def show
+        @project.update_post_alert_dates
         if !@project.public
             check_for_user_permission
         end

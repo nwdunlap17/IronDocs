@@ -75,4 +75,10 @@ class Project < ApplicationRecord
     def self.most_viewed_public_project
         self.sort_by_views.last
     end
+
+    def update_post_alert_dates
+        self.posts.each do |post|
+            post.check_alert
+        end
+    end
 end
