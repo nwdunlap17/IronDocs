@@ -9,9 +9,12 @@ class Post < ApplicationRecord
                 return true
             end
         end
-
         if user_id != nil
-            return user_has_access_rights?(user_id)
+            User.find(user_id).projects.each do |project|
+                if project.posts.include?(self)
+                    return true
+                end
+            end
         end
 
         return false
@@ -42,5 +45,9 @@ class Post < ApplicationRecord
         (self.all.collect do |post|
             post.content.split(" ").length
         end.sum / (self.num_posts * 1.0)).round(2)
+    end
+
+    def owner_name
+        User.find(self.user_id).username
     end
 end

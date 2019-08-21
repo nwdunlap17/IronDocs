@@ -16,7 +16,9 @@ class Project < ApplicationRecord
     def add_user(user)
         if !self.users.include?(user)
             self.users << user
+            return true
         end
+        return false
     end
 
 

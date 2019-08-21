@@ -9,8 +9,10 @@ class PostsController < ApplicationController
     def show
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
+                flash[:alert_message] = "You don't have access to this post"
                 redirect_to user_path(session[:user_id])
             else
+                flash[:alert_message] = "Log in to view this post"
                 redirect_to login_path
             end
         end
@@ -27,8 +29,12 @@ class PostsController < ApplicationController
         @post = Post.new
         @post.title = "New Post"
         @post.public_access = true
+<<<<<<< HEAD
         @user = set_user
         @projects = @user.projects
+=======
+        @change_access_privilege = true
+>>>>>>> 23d7de7ce34e5ca824f99400e68b345b4d773e4f
     end
 
     def create
@@ -42,6 +48,7 @@ class PostsController < ApplicationController
     def edit
         @user = set_user
         @projects = @user.projects
+        @change_access_privilege = (@post.user_id == session[:user_id])
     end
 
     def update
@@ -70,9 +77,11 @@ class PostsController < ApplicationController
         if logged_in?
             set_post
             if !@post.user_has_access_rights?(session[:user_id])
+                flash[:alert_message] = "You don't have permission to edit this post"
                 redirect_to user_path(session[:user_id])
             end
         else
+            flash[:alert_message] = "Log in to edit this post"
             redirect_to login_path
         end
     end
@@ -82,19 +91,26 @@ class PostsController < ApplicationController
             user = User.find(session[:user_id])
             project = Project.find(session[:project_id])
             if !project.users.include?(user)
+                flash[:alert_message] = "You don't have permission to make a post here"
                 redirect_to user_path(user)
             end
         else
+
+            flash[:alert_message] = "Log in to make a post"
             redirect_to login_path
         end
     end
 
     def write_privilege?
         if logged_in?
-            user = User.find(session[:user_id])
-            project = Project.find(session[:project_id])
-            if project.users.include?(user)
-                return true
+            if @post.public_access
+                user = User.find(session[:user_id])
+                project = Project.find(session[:project_id])
+                if project.users.include?(user)
+                    return true
+                end
+            else
+                return @post.user_id == session[:user_id]
             end
         end
         return false

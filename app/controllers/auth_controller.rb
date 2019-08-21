@@ -15,7 +15,7 @@ class AuthController < ApplicationController
         redirect_to user_path(@user)
 
       else
-        flash[:error_message] = "Incorrect credentials!"
+        flash[:alert_message] = "Incorrect credentials!"
         render :login
       end
 

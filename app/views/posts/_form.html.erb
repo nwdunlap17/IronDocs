@@ -6,7 +6,7 @@
     <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]]%> 
 
     <%#=f.label :public_access%>
-    Anyone can edit: <%=f.check_box :public_access%> <br>
+    Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%> <br>
  
     <%#=f.label :content%>
     <%=f.text_area :content, cols: "100", rows: "45"%> <br>

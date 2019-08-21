@@ -27,10 +27,12 @@
 <%else%>
     <p>You don't have any projects yet!</p>
 <%end%>
+<%=flash[:alert_message]%>
+<h1>Project Title: <%=@project.title%> </h1>
+
 <div>
     <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>
     </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
     </p><%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%></p>
     </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete unless @write_privilege == false%></p>
 </div>
-

@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
     before_action :grab_project, except: [:new, :create]
     before_action :check_for_user_permission, except: [:new, :create, :show]
+    before_action :check_for_login, only: [:new, :create]
     # def index
     #     @projects = Project.all
     # end
@@ -51,15 +52,21 @@ class ProjectsController < ApplicationController
 
     def search_invite_user
         @project = Project.find(session[:project_id])
-        @users = User.search_by_username(params[:search])
+        @users = User.find(session[:user_id]).search_users_by_username_giving_priority_to_friends(params[:search])
         render :invite
     end
 
     def add_user_to_project
         @project = Project.find(session[:project_id])
         @user = User.find(params[:user_id])
-        @project.add_user(@user)
+        
+        if @project.add_user(@user)
+            flash[:alert_message] = "#{@user.username} granted access to project!"
+        else
+            flash[:alert_message] = "#{@user.username} already has access to this project!"
+        end
 
+        
         redirect_to project_invite_path
     end
 
@@ -88,15 +95,15 @@ class ProjectsController < ApplicationController
             user = User.find(session[:user_id])
             if !@project.users.include?(user)
                 if @project.public
-                    flash[:error_message] = "You don't have permission to do that"
+                    flash[:alert_message] = "You don't have permission to do that"
                     redirect_to project_path(@project)
                 else
-                    flash[:error_message] = "You don't have permission to view this project"
+                    flash[:alert_message] = "You don't have permission to view this project"
                     redirect_to user_path(user)
                 end
             end
         else
-            flash[:error_message] = "Please log in with valid credentials"
+            flash[:alert_message] = "Please log in with valid credentials"
             redirect_to login_path
         end
     end

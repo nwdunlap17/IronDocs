@@ -1,6 +1,12 @@
+<%=flash[:alert_message]%>
 <%= form_for @user do |u| %>
-    Username: <%=u.text_field :username%> <br>
-    Password: <%=u.password_field :password%> <br>
-    Confirm Password: <%=u.password_field :password_confirmation%> <br>
+    <%=u.label :username%>
+    <%=u.text_field :username%> <br>
+
+    <%=u.label :password%>
+    <%=u.password_field :password%> <br>
+
+    <%=u.label :password_confirmation%>
+    <%=u.password_field :password_confirmation%> <br>
     <%=u.submit "Create User"%>
 <%end%>
