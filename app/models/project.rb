@@ -19,6 +19,7 @@ class Project < ApplicationRecord
         end
     end
 
+
     def self.num_projects
         self.all.length
     end

@@ -27,6 +27,8 @@ class PostsController < ApplicationController
         @post = Post.new
         @post.title = "New Post"
         @post.public_access = true
+        @user = set_user
+        @projects = @user.projects
     end
 
     def create
@@ -38,6 +40,8 @@ class PostsController < ApplicationController
     end
 
     def edit
+        @user = set_user
+        @projects = @user.projects
     end
 
     def update
@@ -52,12 +56,13 @@ class PostsController < ApplicationController
 
     private
 
+
     def set_post
         @post = Post.find(params[:id])
     end
 
     def post_params
-        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
+        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access, :project_ids)
     end
 
     def check_for_user_permission

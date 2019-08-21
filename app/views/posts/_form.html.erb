@@ -12,7 +12,7 @@
     <%=f.text_area :content, cols: "100", rows: "45"%> <br>
 
 
-    
+    Add to existing project: <%=f.collection_select :project_ids, @projects, :id, :title%>
 
     <%=f.submit%>
 <%end%>
@@ -43,6 +43,10 @@
             <tr>
                 <th>Horizontal Rule</th>
                 <td>---</td>
+            </tr>
+            <tr>
+                <th>Images</th>
+                <td>![Image description](path/image.jpg "Title of Image")</td>
             </tr>
     </table>
 </div>
