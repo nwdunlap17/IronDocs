@@ -72,10 +72,9 @@ class ProjectsController < ApplicationController
 
     def destroy
         if @project.users.length > 1
-            byebug
             @project.users.delete(session[:user_id])
         else 
-            @project.delete
+            @project.destroy
         end
         redirect_to "/users/#{session[:user_id]}"
     end
