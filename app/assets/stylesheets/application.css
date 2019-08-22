@@ -22,7 +22,6 @@
     color: #b4acb4;
     font-weight: 700;
     font-size: 3rem;
-    float:left;
     font-style: normal;
 
     text-shadow: 2px 2px black;
@@ -32,8 +31,11 @@
     background-color: cornflowerblue
 }
 
-.yield {
+.navbar li:hover {
+    background-color: #b4acb4;
+}
 
+.yield {
     min-height: 83vh;
 }
 
@@ -51,9 +53,6 @@
 }
 .navmenu {
     align-items: center
-}
-.list-group {
-    float:right;
 }
 
 .list-group-item {
