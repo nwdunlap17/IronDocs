@@ -15,24 +15,36 @@
 
 <h3>Posts</h3>
 <%if !@posts.empty?%>
-    <ul>
+
         <%@posts.each do |post|%>
-            <li><%=link_to post.title, post_path(post)%> - Urgency: 
-            <% case post.urgency_level%>
+            <%case post.urgency_level%>
                 <%when 1%>
-                    None
+                    <%urgent_text = 'None'%>
                 <%when 2%>
-                    Low
+                    <%urgent_text = 'Low'%>
                 <%when 3%>
-                    Medium
+                    <%urgent_text = 'Medium'%>
                 <%when 4%>
-                    High
+                    <%urgent_text = 'High'%>
                 <%when 5%>
-                    Urgent
+                    <%urgent_text = 'Urgent'%>
             <%end%>
-            </li>
+
+
+            <div>
+                <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h3 class="card-title"><%=post.title%></h3>
+                    <h4 class="card-title">Urgency: <%=urgent_text%></h4>
+                    <p class="card-text"><%=post.snippet%></p>
+                    <a href=<%=post_path(post)%> class="btn btn-primary">View</a>
+                </div>
+                </div>
+            <div>
+
+
         <%end%>
-    </ul>
+        
 <%else%>
     <p>You don't have any posts yet!</p>
 <%end%>

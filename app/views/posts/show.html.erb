@@ -20,9 +20,11 @@
     <%end%>
 </p>
 <%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
-<%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
-    Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
-    <%=f.submit "Copy"%>
+<% if @user != nil%>
+    <%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
+        Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
+        <%=f.submit "Copy"%>
+    <%end%>
 <%end%>
 <div class="post_content">
     <h2>Content: </h2>
