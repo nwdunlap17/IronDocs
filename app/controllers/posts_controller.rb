@@ -8,9 +8,14 @@ class PostsController < ApplicationController
 
     def show
         session[:project_id] = @post.projects[0].id
-        @user = set_user
+        if logged_in?
+            @user = set_user
+            @projects = @user.projects
+        else
+            @user = nil
+            @projects = []
+        end
         @post.check_alert
-        @projects = @user.projects
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
                 flash[:alert_message] = "You don't have access to this post"

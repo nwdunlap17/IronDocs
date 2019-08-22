@@ -59,4 +59,12 @@ class Post < ApplicationRecord
             end
         end
     end
+
+    def snippet
+        if self.content.length > 20
+            return "#{content.slice(0.17)}..."
+        else
+            return content
+        end
+    end
 end
