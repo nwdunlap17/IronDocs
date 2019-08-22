@@ -13,10 +13,35 @@
  *= require_tree .
  *= require_self
  */
+ @import url('https://fonts.googleapis.com/css?family=Goblin+One&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Black+Ops+One%7CSaira+Stencil+One&display=swap');
+
+
 #logo a {
-    color: red;
+    font-family: 'Black Ops One', cursive;
+    color: #b4acb4;
+    font-weight: 700;
     font-size: 3rem;
     float:left;
+    font-style: normal;
+
+    text-shadow: 2px 2px black;
+}
+
+.navbar {
+    background-color: cornflowerblue
+}
+
+.yield {
+
+    min-height: 83vh;
+}
+
+.footer {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 
 .flex {
@@ -24,7 +49,9 @@
     flex-flow: row;
     justify-content: space-between;
 }
-
+.navmenu {
+    align-items: center
+}
 .list-group {
     float:right;
 }
