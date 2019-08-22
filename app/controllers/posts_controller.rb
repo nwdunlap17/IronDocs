@@ -68,6 +68,10 @@ class PostsController < ApplicationController
     end
 
     def update
+        if @post.alerted && Post.find(@post.id).alert_date != params[:post][:alert_date].to_date
+            @post.alerted = false
+            @post.save
+        end
         @post.update(post_params)
         @post.tap(&:save)
         #byebug
