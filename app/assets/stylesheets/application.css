@@ -127,3 +127,7 @@ h3 {
 li.list-group-item:hover {
     background-color: #DDDDDD;
 }
+
+footer {
+    margin-top: .75rem;
+}
