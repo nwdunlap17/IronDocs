@@ -13,7 +13,24 @@
     <%if !@posts.empty?%>
         <ul>
             <%@posts.each do |post|%>
-                <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+                <li><%=link_to post.title, post_path(post)%> - Urgency: 
+                    <% case post.urgency_level%>
+                    <%when 1%>
+                        <span class="alert alert-success" role="alert">
+                        None
+                        </span>
+                    <%when 2%>
+                        Low
+                    <%when 3%>
+                        Medium
+                    <%when 4%>
+                        High
+                    <%when 5%>
+                        <span class="alert alert-danger" role="alert">
+                        Urgent
+                        </span>
+                    <%end%>              
+                </li>
             <%end%>
         </ul>
     <%else%>

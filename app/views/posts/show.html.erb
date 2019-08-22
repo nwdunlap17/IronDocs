@@ -8,7 +8,9 @@
 <p>Urgency level: 
     <% case @post.urgency_level%>
         <%when 1%>
+        <span class="alert alert-success" role="alert">
             None
+        </span>
         <%when 2%>
             Low
         <%when 3%>
