@@ -28,7 +28,8 @@
 }
 
 .navbar {
-    background-color: cornflowerblue
+    background-color: cornflowerblue;
+    margin-bottom: 1rem;
 }
 
 .navbar li:hover {
@@ -106,11 +107,19 @@ h2 {
     padding-top: 1rem;
 }
 
+h3 {
+    font-size: 1.5rem;
+}
+
 .right {
     display: flex;
     justify-content: flex-end;
 }
 
-.search {
-    
+.stats {
+    margin-top: 1rem;
+}
+
+li.list-group-item:hover {
+    background-color: #DDDDDD;
 }

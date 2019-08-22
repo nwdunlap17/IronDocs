@@ -1,18 +1,19 @@
-<ul>
-    <li>Total number of posts: <%=@num_posts%></li>
-    <li>Total number of projects: <%=@num_projects%></li>
-    <li>Total number of users: <%=@num_users%>
-    <li>Total number of public projects: <%=@num_public_projects%></li>
-    <li>Average number of posts per project: <%=@average_num_posts%></li>
-    <li>Average number of collaborators per project: <%=@average_num_users%></li>
-    <li>Percentage of projects that are public: <%=@percent_public%>%</li>
-    <li>Average word count per post: <%=@average_word_count%></li>
-    <li>Most viewed public project: <%=link_to @most_viewed_public_project.title, project_path(@most_viewed_public_project)%>
-    <li>Top 5 viewed public projects:</li>
+<div class="container">
+    <h3>Top 5 viewed public projects:</h3>
     <ul>
-        <%@top_5_public_projects.each do |project|%>
-        <li><%=link_to project.title, project_path(project)%> - views: <%=project.views%></li>
-        <%end%>
+            <%@top_5_public_projects.each do |project|%>
+            <li class=""><%=link_to project.title, project_path(project)%> - views: <%=project.views%></li>
+            <%end%>
     </ul>
-</ul>
-<%=link_to "Login", '/login'%>
+    <ul class="list-group stats">
+        <li class="list-group-item">Total number of posts: <%=@num_posts%></li>
+        <li class="list-group-item">Total number of projects: <%=@num_projects%></li>
+        <li class="list-group-item">Total number of users: <%=@num_users%>
+        <li class="list-group-item">Total number of public projects: <%=@num_public_projects%></li>
+        <li class="list-group-item">Average number of posts per project: <%=@average_num_posts%></li>
+        <li class="list-group-item">Average number of collaborators per project: <%=@average_num_users%></li>
+        <li class="list-group-item">Percentage of projects that are public: <%=@percent_public%>%</li>
+        <li class="list-group-item">Average word count per post: <%=@average_word_count%></li>
+        <li class="list-group-item">Most viewed public project: <%=link_to @most_viewed_public_project.title, project_path(@most_viewed_public_project)%>
+    </ul>
+</div>
