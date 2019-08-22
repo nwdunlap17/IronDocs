@@ -50,4 +50,13 @@ class Post < ApplicationRecord
     def owner_name
         User.find(self.user_id).username
     end
+
+    def check_alert
+        if self.alert_date != nil
+            if self.alert_date <= Time.now
+                self.urgency_level = 5
+                self.save
+            end
+        end
+    end
 end

@@ -9,6 +9,7 @@ class PostsController < ApplicationController
     def show
         session[:project_id] = @post.projects[0].id
         @user = set_user
+        @post.check_alert
         @projects = @user.projects
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
