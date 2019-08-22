@@ -116,6 +116,10 @@ h3 {
     justify-content: flex-end;
 }
 
+.search {
+    margin: 1rem 0rem;
+}
+
 .stats {
     margin-top: 1rem;
 }
