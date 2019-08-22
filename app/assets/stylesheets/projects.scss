@@ -29,3 +29,13 @@
     border: 0px solid black;
     align-self: center;
 }
+
+.project {
+    border: 2px solid cornflowerblue;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+div .project a {
+    display: block;
+}

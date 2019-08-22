@@ -10,7 +10,7 @@
         </div>
         
         <div class="create">
-            <%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%>
+            <%=button_to "Edit Project", edit_project_path(@project), method: :get unless @write_privilege == false%>
         </div>
     </div>
     <%if !(@project.description.empty?)%>
@@ -24,7 +24,7 @@
             <h3>Posts</h3>
         </div>
         <div class="create">
-            <%=link_to "New Post", new_post_path unless @write_privilege == false%>
+            <%=button_to "New Post", new_post_path, method: :get unless @write_privilege == false%>
         </div>
     </div>
 
@@ -75,7 +75,7 @@
         <h3>Collaborators</h2>
     </div>
     <div class="create">
-        <%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%>
+        <%=button_to "Invite Collaborator", project_invite_path unless @write_privilege == false%>
     </div>
 </div>
 <ul class="">
@@ -84,6 +84,6 @@
     <%end%>
 </ul>
 <div class=" btn-default right">
-    <%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%>
+    <%=button_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%>
 </div>
 </div>
