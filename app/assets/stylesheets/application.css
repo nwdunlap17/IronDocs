@@ -65,3 +65,39 @@
 .clear {
     float: clear;
 }
+
+.card_menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 1vw;
+}
+.card-body {
+    padding: 0;
+    color: black;
+}
+.card-title {
+    margin: 0;
+}
+.card_back {
+    display: block;
+}
+
+.card-title{
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.card-text{
+    padding-left: 10px;
+    text-align: center;
+}
+
+a.card_link:hover {
+    text-decoration: none;
+}
+
+a .card-body:hover {
+    text-decoration: none;
+    background-color: #DDDDDD;
+}

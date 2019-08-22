@@ -70,7 +70,7 @@ class PostsController < ApplicationController
     def update
         @post.update(post_params)
         @post.tap(&:save)
-        # byebug
+        #byebug
         redirect_to @post
     end
 
