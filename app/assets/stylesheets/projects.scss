@@ -5,7 +5,7 @@
 .card {
     width: 14rem;
     margin-right: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .card_back.no_priority{
@@ -22,4 +22,10 @@
 }
 .urgent_priority{
     background-color: #DB2737;
+}
+
+
+.create {
+    border: 0px solid black;
+    align-self: center;
 }

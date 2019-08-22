@@ -1,10 +1,9 @@
-<%=link_to "IronDocs™ Stats", 'stats/index'%>
 
-<br>
-<%=form_tag public_search_path do%>
-    <%=text_field_tag 'search'%>
-    <%=submit_tag "Search for Public Projects and Users"%>
-<%end%>
+<div class="container">
+        <%=form_tag public_search_path do%>
+            <%=text_field_tag 'search'%>
+            <%=submit_tag "Search for Public Projects and Users"%>
+        <%end%>
 
 <% if @projects.count > 0 %>
     <h3>Public Projects</h3>
@@ -25,3 +24,4 @@
         <li><%= link_to u.username, user_path(u)%></li>
     <%end%>
 <%end%>
+</div>

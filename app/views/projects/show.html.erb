@@ -3,20 +3,32 @@
 <%end%>
 
 <%=flash[:alert_message]%>
-<h1><%=@project.title%> </h1>
+<div class="container">
+    <div class="flex show">
+        <div>
+            <h2>Project Title: <%=@project.title%> </h2>
+        </div>
+        
+        <div class="create">
+            <%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%>
+        </div>
+    </div>
+    <%if !(@project.description.empty?)%>
+        <h3><%=@project.description%></h3>
+    <%else%>
+        <p>This project does not have a description!</p>
+    <%end%>
 
+    <div class="flex show">
+        <div>
+            <h3>Posts</h3>
+        </div>
+        <div class="create">
+            <%=link_to "New Post", new_post_path unless @write_privilege == false%>
+        </div>
+    </div>
 
-<%if !(@project.description.empty?)%>
-    <h3><%=@project.description%></h3>
-<%else%>
-    <h4>This project does not have a description!</h4>
-<%end%>
-
-
-<h3>Posts</h3>
-<%if !@posts.empty?%>
-
-
+    <%if !@posts.empty?%>
     <div class='card_menu'>
         <%@posts.each do |post|%>
         
@@ -57,18 +69,20 @@
     <p>You don't have any posts yet!</p>
 <%end%>
 
-
-<h3>Collaborators</h2>
-<ul>
+<div class="flex">
+    <div>
+        <h3>Collaborators</h2>
+    </div>
+    <div class="create">
+        <%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%>
+    </div>
+</div>
+<ul class="">
     <%@project.users.each do |user|%>
         <li><%=user.username%></li>
     <%end%>
 </ul>
-
-
-<div>
-    <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>
-    </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
-    </p><%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%></p>
-    </p><%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%></p>
+<div class=" btn-default right">
+    <%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%>
+</div>
 </div>
