@@ -1,14 +1,16 @@
 <%=flash[:alert_message]%>
+<div class="container">
 <h1><%=@user.username%>'s profile page</h1>
 
 <%if session[:user_id] == @user.id%>
+    <div class="search">
+        <%=form_tag search_own_files_path(@user) do %>
+            Search: <%=text_field_tag "search"%>
+            <%=submit_tag "Apply Search"%>
+        <%end%>
+    </div>
 
-    <%=form_tag search_own_files_path(@user) do %>
-        Search: <%=text_field_tag "search"%>
-        <%=submit_tag "Apply Search"%>
-    <%end%>
-
-    <h3> Your Posts </h3> <br>
+    <h3> Your Posts </h3>
     
     <%if !@posts.empty?%>
         <ul>
@@ -37,17 +39,26 @@
         <p>You don't have any posts yet!</p>
     <%end%>
 
-    <h3> Your Projects</h3> <br>
+    <div class="flex">
+        <div>
+            <h3> Your Projects</h3>
+        </div>
 <%end%>
+        <div class="create">
+            <%=link_to "New Project", new_project_path%>
+        </div>
+    </div>
 
-<%=link_to "New Project", new_project_path%>
-
-<ul>
 <%@projects.each do |p|%>
-    <ul>
-        <li>Title: <%= link_to p.title, project_path(p)%></li>
-        <li>Description: <%=p.description%></li>
-        <hr>
-    </ul>
+    <dl class="dl-horizontal project">
+        <dt class="title"><%= link_to p.title, project_path(p)%></dt>
+        <dd>Description: 
+            <%if p.description.empty?%>
+                This project does not have a description.
+            <%else%>
+                <%=p.description%>
+            <%end%>
+        </dd>
+    </dl>
 <%end%>
-</ul>
+</div>
