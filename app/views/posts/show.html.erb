@@ -1,25 +1,30 @@
 
 
-            <%case @post.urgency_level%>
-                <%when 1%>
-                    <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
-                <%when 2%>
-                    <%priorit_display = "Low Priority #{@post.display_alert_date('-')}"%>
-                <%when 3%>
-                    <%priority_display = "Medium Priority #{@post.display_alert_date('-')}"%>
-                <%when 4%>
-                    <%priority_display = "High Priority #{@post.display_alert_date('-')}"%>
-                <%when 5%>
-                    <%priority_display = "Urgent #{@post.display_alert_date('-')}"%>
-            <%end%>
-
-
 <div class="container">
     <%=flash[:alert_message]%>
     
     <div class = "flex priority-display">
-        <p><%= "#{priority_display}"%></p>
-        <%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
+        
+
+            <%case @post.urgency_level%>
+                <%when 1%>
+                    <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority no_priority'>
+                <%when 2%>
+                    <%priority_display = "Low Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority low_priority'>
+                <%when 3%>
+                    <%priority_display = "Medium Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority med_priority'>
+                <%when 4%>
+                    <%priority_display = "High Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority high_priority'>
+                <%when 5%>
+                    <%priority_display = "Urgent #{@post.display_alert_date('-')}"%>
+                    <p class ='priority urgent_priority'>
+            <%end%>
+            <%= "#{priority_display}"%></p>
+            <%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
     </div>
 
 
