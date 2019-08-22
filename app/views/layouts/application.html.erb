@@ -12,11 +12,15 @@
   </head>
 
   <body>
+<<<<<<< HEAD
   <nav class="flex">
+=======
+  <nav class="flex navbar">
+>>>>>>> a0dbf1b22390bacfc2dad8880ed77b1c6721d671
       <span id="logo">
         <%=link_to "IronDocs", home_path%>
       </span>
-      <ul class="list-group list-group-horizontal">
+      <ul class="list-group list-group-horizontal navmenu">
           <li class="list-group-item"><%= link_to "Home", home_path%></li>
           <% if logged_in? %>
             <li class="list-group-item "><%= link_to "Log out", logout_path, method: :delete %></li>
@@ -26,6 +30,13 @@
           <% end %>
       </ul>
   </nav>
-      <%= yield %>
+      <div class="yield"
+        <%= yield %>
+      </div>
   </body>
+
+    <footer class="navbar footer">
+      <p>Created by: Iris Silverman & Nick Dunlap</p>
+    </footer>
+
 </html>
