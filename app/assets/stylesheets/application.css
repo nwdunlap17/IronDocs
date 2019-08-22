@@ -105,3 +105,8 @@ h2 {
     font-size: 2rem;
     padding-top: 1rem;
 }
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}

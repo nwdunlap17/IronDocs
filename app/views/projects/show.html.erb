@@ -73,14 +73,16 @@
     <div>
         <h3>Collaborators</h2>
     </div>
-    </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
+    <div class="create">
+        <%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%>
+    </div>
 </div>
-<ul>
+<ul class="">
     <%@project.users.each do |user|%>
         <li><%=user.username%></li>
     <%end%>
 </ul>
-<div class="btn">
-    </p><%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%></p>
+<div class=" btn-default right">
+    <%=link_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%>
 </div>
 </div>
