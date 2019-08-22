@@ -52,9 +52,10 @@ class Post < ApplicationRecord
     end
 
     def check_alert
-        if self.alert_date != nil
+        if self.alert_date != nil && !self.alerted
             if self.alert_date <= Time.now
                 self.urgency_level = 5
+                self.alerted = true
                 self.save
             end
         end
