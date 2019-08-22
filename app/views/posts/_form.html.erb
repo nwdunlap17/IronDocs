@@ -1,21 +1,28 @@
+<div class="container">
 <div class="form-group">
-<%=form_for(@post) do |f|%>
-    <%#=f.label%>
-    <%=f.text_field :title%>
+    <%=form_for(@post) do |f|%>
+        <div class="form-control title">
+        <%#=f.label%>
+        <%=f.text_field :title%>
+        </div>
+        <%#=f.label%>
+        <div class="form-control">
+        <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]], { :class => 'form-control' }%> 
 
-    <%#=f.label%>
-    <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]], { :class => 'form-control' }%> 
-
-    
-    Set reminder: <%=f.date_field :alert_date%>
-    <%#=f.label :public_access%>
-    Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%>
- 
-    <%#=f.label :content%>
-    <%=f.text_area :content, cols: "100", rows: "45"%>
-
-    <%=f.submit%>
-<%end%>
+        
+        Set reminder: <%=f.date_field :alert_date%>
+        <%#=f.label :public_access%>
+        Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%>
+        </div>
+        <%#=f.label :content%>
+        <div class="text">
+            <%=f.text_area :content%>
+        </div>
+        <div class="btn btn-lg">
+            <%=f.submit%>
+        </div>
+    <%end%>
+    </div>
 </div>
 
 <div class="markdown_key">
@@ -50,6 +57,7 @@
                 <th>Images</th>
                 <td>![Image description](path/image.jpg "Title of Image")</td>
             </tr>
-            </tbody>
+        </tbody>
     </table>
+</div>
 </div>

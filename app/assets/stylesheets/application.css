@@ -32,6 +32,10 @@
     background-color: cornflowerblue
 }
 
+.navbar li:hover {
+    background-color: #b4acb4;
+}
+
 .yield {
 
     min-height: 83vh;
