@@ -17,7 +17,7 @@
         <%=link_to "IronDocs™", home_path%>
       </span>
       <ul class="list-group list-group-horizontal navmenu">
-          <li class="list-group-item"><%=link_to "IronDocs™ Stats", 'stats/index'%></li>
+          <li class="list-group-item"><%=link_to "IronDocs™ Stats", '/stats/index'%></li>
 
           <% if logged_in? %>
             <li class="list-group-item "><%= link_to "Log out", logout_path, method: :delete %></li>

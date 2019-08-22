@@ -88,7 +88,7 @@ class User < ApplicationRecord
         if search != nil && search != ''
             search = search.downcase
 
-            projectlist.select do |project|
+            projectlist = projectlist.select do |project|
                 project.title.downcase.include?(search)
             end
         end

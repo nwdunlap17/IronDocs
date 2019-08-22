@@ -1,36 +1,50 @@
-<%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
-<%=flash[:alert_message]%>
-<h1>Title: <%=@post.title%></h1>
 
 
-<p><%=@post.public_access%></p>
-<p>Public access: <%=@post.alert_date%></p>
-<p>Urgency level: 
-    <% case @post.urgency_level%>
-        <%when 1%>
-        <span class="alert alert-success" role="alert">
-            None
-        </span>
-        <%when 2%>
-            Low
-        <%when 3%>
-            Medium
-        <%when 4%>
-            High
-        <%when 5%>
-            Urgent
-    <%end%>
-</p>
-<%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
-<% if @user != nil%>
-    <%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
-        Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
-        <%=f.submit "Copy"%>
-    <%end%>
-<%end%>
-<div class="post_content">
-    <h2>Content: </h2>
-    <%=sanitize @markdown.render(@post.content)%>
+            <%case @post.urgency_level%>
+                <%when 1%>
+                    <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
+                <%when 2%>
+                    <%priorit_display = "Low Priority #{@post.display_alert_date('-')}"%>
+                <%when 3%>
+                    <%priority_display = "Medium Priority #{@post.display_alert_date('-')}"%>
+                <%when 4%>
+                    <%priority_display = "High Priority #{@post.display_alert_date('-')}"%>
+                <%when 5%>
+                    <%priority_display = "Urgent #{@post.display_alert_date('-')}"%>
+            <%end%>
+
+
+<div class="container">
+    <%=flash[:alert_message]%>
+    
+    <div class = "flex priority-display">
+        <p><%= "#{priority_display}"%></p>
+        <%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
+    </div>
+
+
+    <div class="flex headers">
+        <h1><%=@post.title%></h1>
+
+        <%=button_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
+
+    </div>
+
+
+
+    <div class="post_content">
+        <%=sanitize @markdown.render(@post.content)%>
+    </div>
+
+<hr>
+    <div>
+        <h3> Manage Post </h3>
+        <% if @user != nil%>
+            <%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
+                Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
+                <%=f.submit "Copy"%>
+            <%end%>
+        <%end%>
+        <%=button_to "Delete Post", post_path(@post), data: {confirm: "Are you sure you would like to delete this post?"},method: :delete unless @write_privilege == false%>
+    </div>
 </div>
-
-<%=link_to "Delete", post_path(@post), data: {confirm: "Are you sure you would like to delete this post?"},method: :delete unless @write_privilege == false%>

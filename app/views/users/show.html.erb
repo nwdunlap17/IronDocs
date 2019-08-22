@@ -8,33 +8,45 @@
         <%=submit_tag "Apply Search"%>
     <%end%>
 
-    <h3> Your Posts </h3> <br>
     
     <%if !@posts.empty?%>
-        <ul>
-            <%@posts.each do |post|%>
-                <li><%=link_to post.title, post_path(post)%> - Urgency: 
-                    <% case post.urgency_level%>
-                    <%when 1%>
-                        <span class="alert alert-success" role="alert">
-                        None
-                        </span>
-                    <%when 2%>
-                        Low
-                    <%when 3%>
-                        Medium
-                    <%when 4%>
-                        High
-                    <%when 5%>
-                        <span class="alert alert-danger" role="alert">
-                        Urgent
-                        </span>
-                    <%end%>              
-                </li>
+
+    <h3> Your High Priority Posts </h3> <br>
+    <div class='card_menu'>
+        <%@posts.each do |post|%>
+        
+        <div class="card">
+            <a href=<%=post_path(post)%> class='card_link' >
+            <div class="card-body">
+
+            <%case post.urgency_level%>
+                <%when 1%>
+                    <%urgent_text = "No Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back no_priority'>
+                <%when 2%>
+                    <%urgent_text = "Low Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back low_priority'>
+                <%when 3%>
+                    <%urgent_text = "Medium Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back med_priority'>
+                <%when 4%>
+                    <%urgent_text = "High Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back high_priority'>
+                <%when 5%>
+                    <%urgent_text = "Urgent#{post.display_alert_date('-')}"%>
+                    <div class ='card_back urgent_priority'>
             <%end%>
-        </ul>
-    <%else%>
-        <p>You don't have any posts yet!</p>
+
+
+                        <h3 class="card-title"><%=post.title%></h3>
+                    </div>
+                    <p class="card-text"><%=urgent_text%></p>
+                    <p class="card-text"><%=post.snippet%></p>
+                </div>
+                </div>
+            </a>
+        <%end%>    
+    </div>
     <%end%>
 
     <h3> Your Projects</h3> <br>
