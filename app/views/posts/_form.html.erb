@@ -1,33 +1,34 @@
 <div class="container">
-<div class="form-group">
     <%=form_for(@post) do |f|%>
-        <div class="form-control title">
+        <div class="form-inline">
+            <div class="form-group title">
+                <%#=f.label%>
+                <%=f.text_field :title%>
+            </div>
         <%#=f.label%>
-        <%=f.text_field :title%>
-        </div>
-        <%#=f.label%>
-        <div class="form-control">
-        <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]], { :class => 'form-control' }%> 
-
-        
-        Set reminder: <%=f.date_field :alert_date%>
-        <%#=f.label :public_access%>
-        Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%>
+            <div class="form-group">
+                <div class="post-settings">
+                    <%=f.select :urgency_level, [['none', 1], ['low', 2], ['medium', 3], ['high', 4], ['urgent', 5]], { :class => 'form-control' }%>
+                    Set reminder: <%=f.date_field :alert_date%>
+                    <%#=f.label :public_access%>
+                    Anyone can edit: <%=f.check_box :public_access unless !@change_access_privilege%>
+                </div>
+                <div class="btn btn-lg right">
+                    <%=f.submit%>
+                </div>
+            </div>
         </div>
         <%#=f.label :content%>
         <div class="text">
             <%=f.text_area :content%>
         </div>
-        <div class="btn btn-lg">
-            <%=f.submit%>
-        </div>
     <%end%>
     </div>
 </div>
 
-<div class="markdown_key">
+<div class="container">
     <table class="table table-hover">
-        <caption><a href="https://daringfireball.net/projects/markdown/basics">Markdown</a> Key</caption>
+        <caption>Check out the <a href="https://daringfireball.net/projects/markdown/basics">Markdown</a> Key for more formatting options.</caption>
         <tbody>
             <tr>
                 <th>Italics</th>
@@ -59,5 +60,4 @@
             </tr>
         </tbody>
     </table>
-</div>
 </div>

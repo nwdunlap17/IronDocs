@@ -22,7 +22,6 @@
     color: #b4acb4;
     font-weight: 700;
     font-size: 3rem;
-    float:left;
     font-style: normal;
 
     text-shadow: 2px 2px black;
@@ -37,7 +36,6 @@
 }
 
 .yield {
-
     min-height: 83vh;
 }
 
@@ -56,9 +54,6 @@
 .navmenu {
     align-items: center
 }
-.list-group {
-    float:right;
-}
 
 .list-group-item {
     padding-top: 0;
@@ -66,6 +61,3 @@
     border: 1px solid black;
 }
 
-.clear {
-    float: clear;
-}

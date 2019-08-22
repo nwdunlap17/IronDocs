@@ -4,18 +4,18 @@
 
 
 .text textarea {
-    width: 98vw;
-    height: 60vh;
-    margin: 1rem 1rem 0rem 1rem;
+    width: 80vw;
+    height: 80vh;
 }
 
-.form-control {
-    border: none;
-    padding: 1rem;
+.form-inline {
+    display: flex;
+    justify-content: space-around;
 }
+
 
 .title {
-    margin-bottom: .5rem;
+    margin-right: .5rem;
     font-size: 1.5rem;
 }
 
@@ -23,6 +23,14 @@
     padding-left: .5rem;
 }
 
-.btn-large {
-    margin-top: .25rem;
+.post-settings input, .post-settings select {
+    margin-right: 1rem;     
+}
+
+.table caption {
+    margin-left: .75vw;
+}
+
+.markdown_key {
+    margin: 0 auto;
 }
