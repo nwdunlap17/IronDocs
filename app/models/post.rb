@@ -62,9 +62,19 @@ class Post < ApplicationRecord
 
     def snippet
         if self.content.length > 20
-            return "#{content.slice(0.17)}..."
+            return "#{content.slice(0..17)}..."
+        elsif self.content.length == 0
+            return "No content..."
         else
             return content
+        end
+    end
+
+    def display_alert_date(prefix = '')
+        if self.alert_date == nil
+            return ''
+        else
+            return "#{prefix} #{self.alert_date.to_s}"
         end
     end
 end
