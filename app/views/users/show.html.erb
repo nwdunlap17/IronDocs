@@ -56,11 +56,13 @@
         <div>
             <h3> Your Projects</h3>
         </div>
-<%end%>
+
         <div class="create">
             <%=button_to "New Project", new_project_path, method: :get%>
         </div>
     </div>
+<%end%>
+        
 
 <%@projects.each do |p|%>
     <dl class="dl-horizontal project">

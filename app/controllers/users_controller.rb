@@ -9,7 +9,11 @@ class UsersController < ApplicationController
 
         @user.update_post_alert_dates
         @posts = @user.search_my_posts_by_name_and_priority(params[:search])
-        @projects = @user.search_my_projects_by_name(params[:search])
+        if params[:id] == session[:user_id]
+            @projects = @user.search_my_projects_by_name(params[:search])
+        else
+            @projects = User.find(params[:id]).visible_projects(session[:user_id])
+        end
         cookies[:last_user_id] = @user.id
     end
 
