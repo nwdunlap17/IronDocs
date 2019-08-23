@@ -1,4 +1,4 @@
-<%=flash[:alert_message]%>
+<div class="container">
 <h2>Login</h2>
 <%=form_for :login do |f|%>
     <%=f.label :username%>
@@ -7,4 +7,4 @@
     <%=f.password_field :password%>
     <%=f.submit "Login"%>
 <%end%>
-<%=link_to "Create an Account", 'users/new'%>
+</div>

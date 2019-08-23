@@ -62,7 +62,7 @@ class ProjectsController < ApplicationController
         @user = User.find(params[:user_id])
         
         if @project.add_user(@user)
-            flash[:alert_message] = "#{@user.username} granted access to project!"
+            flash[:success_message] = "#{@user.username} granted access to project!"
         else
             flash[:alert_message] = "#{@user.username} already has access to this project!"
         end

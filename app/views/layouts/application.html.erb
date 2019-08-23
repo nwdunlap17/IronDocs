@@ -28,6 +28,15 @@
           <% end %>
       </ul>
   </nav>
+  <% if flash[:success_message]%>
+    <div class="alert alert-success">
+        <%=flash[:success_message]%>
+    </div>
+  <% elsif flash[:alert_message]%>
+    <div class="alert alert-danger">
+        <%=flash[:alert_message]%>
+    </div>
+  <%end%>
       <div class="yield">
         <%= yield %>
       </div>
