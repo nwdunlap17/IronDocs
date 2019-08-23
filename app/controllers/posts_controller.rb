@@ -74,7 +74,10 @@ class PostsController < ApplicationController
         end
         @post.update(post_params)
         @post.tap(&:save)
-        #byebug
+        if User.find(@post.user_id) == nil
+            #User no longer exists, WHY???
+            byebug
+        end
         redirect_to @post
     end
 

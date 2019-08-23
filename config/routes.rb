@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   post '/users/:id/search', to:'users#show', as: 'search_own_files'
 
-  resources :projects
+  resources :projects, except: [:index]
   resources :users, except: [:index, :edit, :update, :destroy]
   resources :posts, except: [:index]
   # resources :post_projects

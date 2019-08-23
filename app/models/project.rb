@@ -3,6 +3,7 @@ class Project < ApplicationRecord
     has_many :users, through: :project_users
     has_many :post_projects
     has_many :posts, through: :post_projects
+    validates :title, presence: true
 
     def sort_my_posts_by_urgency
         alpha_sort = self.posts.sort do |a, b|
@@ -80,5 +81,9 @@ class Project < ApplicationRecord
         self.posts.each do |post|
             post.check_alert
         end
+    end
+
+    def owner_name
+        User.find(self.user_id).name
     end
 end
