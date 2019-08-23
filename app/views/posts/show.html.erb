@@ -1,11 +1,5 @@
-
-
 <div class="container">
-    <%=flash[:alert_message]%>
-    
     <div class = "flex priority-display">
-        
-
             <%case @post.urgency_level%>
                 <%when 1%>
                     <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
@@ -37,8 +31,6 @@
             <p>Locked by <%=@post.owner_name%></p>
         <%end%>
     </div>
-
-
 
     <div class="post_content">
         <%=sanitize @markdown.render(@post.content)%>

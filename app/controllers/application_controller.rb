@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
             if !!!logged_in?
                 flash[:alert_message] = "Log in to view this page"
                 redirect_to login_path
-                
             end
         end
 

@@ -10,7 +10,9 @@ class AuthController < ApplicationController
     def verify
       @user = User.find_by(username: params[:login][:username])
       if @user && @user.authenticate(params[:login][:password])
-
+        if flash[:alert_message]
+          flash[:alert_message].clear
+        end
         session[:user_id] = @user.id
         redirect_to user_path(@user)
 

@@ -36,6 +36,7 @@ class ProjectsController < ApplicationController
             cookies[:last_user_id] = session[:user_id]
             redirect_to project_path(@project)
         else
+            flash[:alert_message] = "Project must have a title"
             render :new
         end
     end
@@ -64,7 +65,7 @@ class ProjectsController < ApplicationController
         @user = User.find(params[:user_id])
         
         if @project.add_user(@user)
-            flash[:alert_message] = "#{@user.username} granted access to project!"
+            flash[:success_message] = "#{@user.username} granted access to project!"
         else
             flash[:alert_message] = "#{@user.username} already has access to this project!"
         end

@@ -1,12 +1,18 @@
-<%=flash[:alert_message]%>
-<%= form_for @user do |u| %>
-    <%=u.label :username%>
-    <%=u.text_field :username%> <br>
+<div class="container">
+    <%= form_for @user do |u| %>
+        <div class="form-group">
+            <%=u.label :username%>
+            <%=u.text_field :username%>
+        </div>
+        <div class="form-group">
+            <%=u.label :password%>
+            <%=u.password_field :password%>
+        </div>
 
-    <%=u.label :password%>
-    <%=u.password_field :password%> <br>
-
-    <%=u.label :password_confirmation%>
-    <%=u.password_field :password_confirmation%> <br>
-    <%=u.submit "Create User"%>
-<%end%>
+        <div class="form-group">
+            <%=u.label :password_confirmation%>
+            <%=u.password_field :password_confirmation%>
+        </div>
+        <%=u.submit "Create User"%>
+    <%end%>
+</div>

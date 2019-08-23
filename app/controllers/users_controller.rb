@@ -20,11 +20,17 @@ class UsersController < ApplicationController
     def create 
         @user = User.new(user_params)
         if @user.save
+            if flash[:alert_message]
+                flash[:alert_message].clear
+              end
             session[:user_id] = @user.id
             redirect_to user_path(@user)
         else
-            
+            if User.find_by(username: params[:user][:username])
             flash[:alert_message] = "This username is taken"
+            else
+                flash[:alert_message] = "Passwords don't match"
+            end
             render :new
         end
     end
