@@ -3,7 +3,7 @@
     <%=form_for @project do |p|%>
         Title: <%=p.text_field :title%> <br>
         Description <br> 
-        <div class='text'>
+        <div class='description'>
             <%=p.text_area :description%> <br>
         </div>
         Make project publicly visible: <%=p.check_box :public%> <br>

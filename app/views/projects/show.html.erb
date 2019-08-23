@@ -32,8 +32,9 @@
     <div class='card_menu'>
         <%@posts.each do |post|%>
         
+        <div class="card-container">
+        <a href=<%=post_path(post)%> class='card_link' >
         <div class="card">
-            <a href=<%=post_path(post)%> class='card_link' >
             <div class="card-body">
 
             <%case post.urgency_level%>
@@ -59,9 +60,10 @@
                     </div>
                     <p class="card-text"><%=urgent_text%></p>
                     <p class="card-text"><%=post.snippet%></p>
-                </div>
-                </div>
-            </a>
+            </div>
+        </div>
+        </div>
+        </a>
         <%end%>
     </div>
         

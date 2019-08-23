@@ -4,6 +4,9 @@
 
 .card {
     width: 14rem;
+}
+
+.card-container {
     margin-right: 2rem;
     margin-bottom: 1rem;
 }
@@ -40,12 +43,27 @@ div .project a {
     display: block;
 }
 
-.checkbox {
-    display: inline-block;
-    
-}
-
-.text textarea {
+.description textarea {
     width: 40vw;
     height: 60px;
+}
+
+.card-title {
+    font-weight: 500;
+    display: flex;
+    justify-content: center; 
+    margin-bottom: .5rem;
+}
+
+.card-text {
+    margin-bottom: .5rem;
+}
+
+.col-flex {
+    display: flex;
+    flex-flow: column;
+}
+
+.col-flex div {
+    flex-grow: 1; 
 }
