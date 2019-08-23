@@ -57,7 +57,10 @@ class PostsController < ApplicationController
         @post.user_id = session[:user_id]
         @post.projects << Project.find(session[:project_id])
         @post.tap(&:save) #If this ever breaks again, just uncomment the byebug and run @post.errors
-        # byebug
+        if @post.title == "Unicorpse"
+            @post.content = "![dead unicorn](https://i.stack.imgur.com/dEC0O.jpg )"
+            @post.save
+        end
         redirect_to post_path(@post)
     end
 
