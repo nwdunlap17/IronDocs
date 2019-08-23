@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
 
     def new
         @project = Project.new
+        @friends = User.find(session[:user_id]).search_users_by_username_giving_priority_to_friends(params[:search])
     end
 
     def create 
@@ -40,6 +41,7 @@ class ProjectsController < ApplicationController
     end
 
     def edit
+        @friends = []
     end
 
     def update
@@ -74,6 +76,12 @@ class ProjectsController < ApplicationController
     def destroy
         if @project.users.length > 1
             @project.users.delete(session[:user_id])
+            @project.posts.each do |post|
+                if post.user_id == session[:user_id]
+                    post.public_access = true
+                    post.save
+                end
+            end
         else 
             @project.destroy
         end

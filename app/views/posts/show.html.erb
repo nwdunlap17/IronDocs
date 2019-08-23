@@ -26,9 +26,11 @@
     <div class="flex headers">
         <h1><%=@post.title%></h1>
 
-        
-        <%=button_to "Edit Post", edit_post_path(@post),method: :get  unless @write_privilege == false%>
-
+        <% if @write_privilege %>
+            <%=button_to "Edit Post", edit_post_path(@post),method: :get%>
+        <% elsif !@post.public_access %>
+            <p>Locked by <%=@post.owner_name%></p>
+        <%end%>
     </div>
 
 
