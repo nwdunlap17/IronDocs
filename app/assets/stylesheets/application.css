@@ -45,6 +45,7 @@
     left: 0;
     bottom: 0;
     width: 100%;
+     margin-top: .75rem;
 }
 
 .flex {
@@ -126,8 +127,4 @@ h3 {
 
 li.list-group-item:hover {
     background-color: #DDDDDD;
-}
-
-footer {
-    margin-top: .75rem;
 }
