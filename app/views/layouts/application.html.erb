@@ -21,7 +21,7 @@
 
           <% if logged_in? %>
             <li class="list-group-item "><%= link_to "Log out", logout_path, method: :delete %></li>
-            <li class="list-group-item "><%= link_to "My Profile", user_path(session[:user_id])%></li>
+            <li class="list-group-item "><%= link_to User.find(session[:user_id]).username, user_path(session[:user_id])%></li>
           <%else%>
             <li class="list-group-item"><%=link_to "Sign In", '/login'%></li>
             <li class="list-group-item"><%=link_to "Create Account", '/users/new'%></li>
