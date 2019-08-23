@@ -39,7 +39,7 @@ class PostsController < ApplicationController
         @copy_post.user_id = session[:user_id]
         @copy_post.save
         @copy_post.projects << Project.find(params[:copy][:project_id])
-        flash[:alert_message] = "You have successfully copied #{@copy_post.title} to the #{Project.find(params[:copy][:project_id]).title} directory."
+        flash[:success_message] = "You have successfully copied #{@copy_post.title} to the #{Project.find(params[:copy][:project_id]).title} directory."
         redirect_to post_path(@copy_post)
     end
 

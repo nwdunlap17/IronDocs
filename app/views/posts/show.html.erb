@@ -1,10 +1,5 @@
-
-
 <div class="container">
-    
     <div class = "flex priority-display">
-        
-
             <%case @post.urgency_level%>
                 <%when 1%>
                     <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
@@ -29,13 +24,8 @@
 
     <div class="flex headers">
         <h1><%=@post.title%></h1>
-
-        
         <%=button_to "Edit Post", edit_post_path(@post),method: :get  unless @write_privilege == false%>
-
     </div>
-
-
 
     <div class="post_content">
         <%=sanitize @markdown.render(@post.content)%>
