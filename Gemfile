@@ -7,7 +7,7 @@ gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 gem 'coffee-script-source', '1.8.0'
 
 
-
+gem 'bootstrap', '~> 4.3.1'
 gem 'faker'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

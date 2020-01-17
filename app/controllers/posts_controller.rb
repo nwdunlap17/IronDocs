@@ -7,6 +7,15 @@ class PostsController < ApplicationController
     # end
 
     def show
+        session[:project_id] = @post.projects[0].id
+        if logged_in?
+            @user = set_user
+            @projects = @user.projects
+        else
+            @user = nil
+            @projects = []
+        end
+        @post.check_alert
         if !@post.visitor_has_view_rights?(session[:user_id])
             if logged_in?
                 flash[:alert_message] = "You don't have access to this post"
@@ -25,6 +34,15 @@ class PostsController < ApplicationController
         
     end
 
+    def copy
+        @copy_post = @post.dup
+        @copy_post.user_id = session[:user_id]
+        @copy_post.save
+        @copy_post.projects << Project.find(params[:copy][:project_id])
+        flash[:success_message] = "You have successfully copied #{@copy_post.title} to the #{Project.find(params[:copy][:project_id]).title} directory."
+        redirect_to post_path(@copy_post)
+    end
+
     def new
         @post = Post.new
         @post.title = "New Post"
@@ -38,7 +56,8 @@ class PostsController < ApplicationController
         @post = Post.new(post_params)
         @post.user_id = session[:user_id]
         @post.projects << Project.find(session[:project_id])
-        @post.save
+        @post.tap(&:save) #If this ever breaks again, just uncomment the byebug and run @post.errors
+        # byebug
         redirect_to post_path(@post)
     end
 
@@ -49,8 +68,16 @@ class PostsController < ApplicationController
     end
 
     def update
+        if @post.alerted && Post.find(@post.id).alert_date != params[:post][:alert_date].to_date
+            @post.alerted = false
+            @post.save
+        end
         @post.update(post_params)
-        @post.projects << Project.find(params[:post][:project_ids])
+        @post.tap(&:save)
+        if User.find(@post.user_id) == nil
+            #User no longer exists, WHY???
+            byebug
+        end
         redirect_to @post
     end
 
@@ -67,13 +94,13 @@ class PostsController < ApplicationController
     end
 
     def post_params
-        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access)
+        params.require(:post).permit(:content, :title, :user_id, :urgency_level, :public_access, :alert_date)
     end
 
     def check_for_user_permission
         if logged_in?
             set_post
-            if !@post.user_has_access_rights?(session[:user_id])
+            if !write_privilege?#!@post.user_has_access_rights?(session[:user_id])
                 flash[:alert_message] = "You don't have permission to edit this post"
                 redirect_to user_path(session[:user_id])
             end

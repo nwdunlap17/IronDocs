@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
     # end
 
     def show
+        @project.update_post_alert_dates
         if !@project.public
             check_for_user_permission
         end
@@ -24,6 +25,7 @@ class ProjectsController < ApplicationController
 
     def new
         @project = Project.new
+        @friends = User.find(session[:user_id]).search_users_by_username_giving_priority_to_friends(params[:search])
     end
 
     def create 
@@ -34,11 +36,13 @@ class ProjectsController < ApplicationController
             cookies[:last_user_id] = session[:user_id]
             redirect_to project_path(@project)
         else
+            flash[:alert_message] = "Project must have a title"
             render :new
         end
     end
 
     def edit
+        @friends = []
     end
 
     def update
@@ -61,7 +65,7 @@ class ProjectsController < ApplicationController
         @user = User.find(params[:user_id])
         
         if @project.add_user(@user)
-            flash[:alert_message] = "#{@user.username} granted access to project!"
+            flash[:success_message] = "#{@user.username} granted access to project!"
         else
             flash[:alert_message] = "#{@user.username} already has access to this project!"
         end
@@ -73,6 +77,12 @@ class ProjectsController < ApplicationController
     def destroy
         if @project.users.length > 1
             @project.users.delete(session[:user_id])
+            @project.posts.each do |post|
+                if post.user_id == session[:user_id]
+                    post.public_access = true
+                    post.save
+                end
+            end
         else 
             @project.destroy
         end

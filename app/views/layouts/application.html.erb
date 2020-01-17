@@ -1,30 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IronDocsApp</title>
+    <title>IronDocsApp™</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="app/assets/stylesheets/application.css" type="text/css">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-  <nav>
-      <ul class="nav">
-          <li><%= link_to "Home", home_path%></li>
+  <nav class="flex navbar">
+      <span id="logo">
+        <%=link_to "IronDocs™", home_path%>
+      </span>
+      <ul class="list-group list-group-horizontal navmenu">
+          <li class="list-group-item"><%=link_to "IronDocs™ Stats", '/stats/index'%></li>
+
           <% if logged_in? %>
-            <li><%= link_to "Log out", logout_path, method: :delete %></li>
-            <li><%= link_to "My Profile", user_path(session[:user_id])%></li>
+            <li class="list-group-item "><%= link_to "Log out", logout_path, method: :delete %></li>
+            <li class="list-group-item "><%= link_to "My Profile", user_path(session[:user_id])%></li>
           <%else%>
-            <li><%=link_to "Sign In", '/login'%></li>
+            <li class="list-group-item"><%=link_to "Sign In", '/login'%></li>
+            <li class="list-group-item"><%=link_to "Create Account", '/users/new'%></li>
           <% end %>
-          <%if !!cookies[:last_user_id] && cookies[:last_user_id].to_i != session[:user_id] %>
-            <li><%=link_to "Back to #{User.get_name(cookies[:last_user_id])}", user_path(cookies[:last_user_id])%></li>
-          <%end%>
       </ul>
   </nav>
-    <h1>IronDocs</h1>
-      <%= yield %>
-  </body>
+  <% if flash[:success_message]%>
+    <div class="alert alert-success">
+        <%=flash[:success_message]%>
+    </div>
+  <% elsif flash[:alert_message]%>
+    <div class="alert alert-danger">
+        <%=flash[:alert_message]%>
+    </div>
+  <%end%>
+      <div class="yield">
+        <%= yield %>
+      </div>
+      </body>
+    <footer class="navbar footer">
+      <p>Created by: Iris Silverman & Nick Dunlap</p>
+    </footer>
 </html>

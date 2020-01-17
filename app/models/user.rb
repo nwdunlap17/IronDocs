@@ -34,6 +34,68 @@ class User < ApplicationRecord
         end
     end
 
+
+    def search_my_posts_by_name_and_priority(search)
+
+
+        projectlist = self.projects
+        # byebug
+        postlist = []
+        projectlist.each do |project|
+            project.posts.each do |post|
+                postlist << post
+            end
+        end
+
+        postlist = postlist.uniq
+
+        postlist = postlist.sort do |a,b|
+            a.title <=> b.title
+        end
+        postlist = postlist.sort do |a,b|
+            b.urgency_level <=> a.urgency_level
+        end
+
+        if search == nil || search == ''
+            search = ''
+            postlist = postlist.select do |post|
+                post.urgency_level >= 4
+            end
+        else
+            search = search.downcase
+            postlistattempt = postlist.select do |post|
+                post.title.downcase.include?(search)
+            end
+            if postlistattempt.count > 0
+                postlist = postlistattempt
+            else
+                postlist = postlist.select do |post|
+                    post.content.downcase.include?(search)
+                end
+            end
+        end
+
+        return postlist
+    end
+
+    def search_my_projects_by_name(search)
+        projectlist = self.projects
+
+        projectlist = projectlist.sort do |a,b|
+            a.title <=> b.title
+        end
+
+        if search != nil && search != ''
+            search = search.downcase
+
+            projectlist = projectlist.select do |project|
+                project.title.downcase.include?(search)
+            end
+        end
+
+        return projectlist
+    end
+
     def visible_projects(visitor_id)
         if visitor_id == self.id 
             return self.projects
@@ -100,5 +162,11 @@ class User < ApplicationRecord
         end
 
         return userslist
+    end
+
+    def update_post_alert_dates
+        self.projects.each do |project|
+            project.update_post_alert_dates
+        end
     end
 end

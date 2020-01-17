@@ -1,3 +1,51 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.priority {
+    padding: .5rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.text textarea {
+    width: 80vw;
+    height: 80vh;
+}
+
+.post-content {
+    width: 80vw;
+    height: 80vh;
+}
+
+.form-inline {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.title {
+    margin-right: .5rem;
+    font-size: 1.5rem;
+}
+
+.title input {
+    padding-left: .5rem;
+}
+
+.post-settings input, .post-settings select {
+    margin-right: 1rem;     
+}
+
+.table caption {
+    margin-left: .75vw;
+}
+
+.markdown_key {
+    margin: 0 auto;
+}
+
+.headers {
+    align-items: center;
+}

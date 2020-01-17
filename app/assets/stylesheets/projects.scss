@@ -1,3 +1,69 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card {
+    width: 14rem;
+}
+
+.card-container {
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+}
+
+.card_back.no_priority{
+    background-color: cornflowerblue;
+}
+.low_priority{
+    background-color: #7DD777;
+}
+.med_priority{
+    background-color: #F4F400;
+}
+.high_priority{
+    background-color: #E08E45
+}
+.urgent_priority{
+    background-color: #DB2737;
+}
+
+
+.create {
+    border: 0px solid black;
+    align-self: center;
+}
+
+.project {
+    border: 2px solid cornflowerblue;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+
+div .project a {
+    display: block;
+}
+
+.description textarea {
+    width: 40vw;
+    height: 60px;
+}
+
+.card-title {
+    font-weight: 500;
+    display: flex;
+    justify-content: center; 
+    margin-bottom: .5rem;
+}
+
+.card-text {
+    margin-bottom: .5rem;
+}
+
+.col-flex {
+    display: flex;
+    flex-flow: column;
+}
+
+.col-flex div {
+    flex-grow: 1; 
+}

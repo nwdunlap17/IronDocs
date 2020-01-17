@@ -13,3 +13,118 @@
  *= require_tree .
  *= require_self
  */
+ @import url('https://fonts.googleapis.com/css?family=Goblin+One&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Black+Ops+One%7CSaira+Stencil+One&display=swap');
+
+
+#logo a {
+    font-family: 'Black Ops One', cursive;
+    color: #b4acb4;
+    font-weight: 700;
+    font-size: 3rem;
+    font-style: normal;
+
+    text-shadow: 2px 2px black;
+}
+
+.navbar {
+    background-color: cornflowerblue;
+    margin-bottom: 1rem;
+}
+
+.navbar li:hover {
+    background-color: #b4acb4;
+}
+
+.yield {
+    min-height: 83vh;
+}
+
+.footer {
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+     margin-top: .75rem;
+}
+
+.flex {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.navmenu {
+    align-items: center
+}
+
+.list-group-item {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid black;
+}
+
+.clear {
+    float: clear;
+}
+
+.card_menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 1vw;
+}
+.card-body {
+    padding: 0;
+    color: black;
+}
+.card-title {
+    margin: 0;
+}
+.card_back {
+    display: block;
+}
+
+.card-title{
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.card-text{
+    padding-left: 10px;
+    text-align: center;
+}
+
+a.card_link:hover {
+    text-decoration: none;
+}
+
+a .card-body:hover {
+    text-decoration: none;
+    background-color: #DDDDDD;
+}
+
+h2 {
+    font-size: 2rem;
+    padding-top: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search {
+    margin: 1rem 0rem;
+}
+
+.stats {
+    margin-top: 1rem;
+}
+
+li.list-group-item:hover {
+    background-color: #DDDDDD;
+}

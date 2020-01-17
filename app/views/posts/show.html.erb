@@ -1,28 +1,52 @@
-<%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
-<h1>Title: <%=@post.title%></h1>
+<div class="container">
+    <div class = "flex priority-display">
+            <%case @post.urgency_level%>
+                <%when 1%>
+                    <%priority_display = "No Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority no_priority'>
+                <%when 2%>
+                    <%priority_display = "Low Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority low_priority'>
+                <%when 3%>
+                    <%priority_display = "Medium Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority med_priority'>
+                <%when 4%>
+                    <%priority_display = "High Priority #{@post.display_alert_date('-')}"%>
+                    <p class ='priority high_priority'>
+                <%when 5%>
+                    <%priority_display = "Urgent #{@post.display_alert_date('-')}"%>
+                    <p class ='priority urgent_priority'>
+            <%end%>
+            <%= "#{priority_display}"%></p>
+            <%=link_to "Back to #{@last_project.title} Directory", project_path(@last_project) %>
+    </div>
 
 
-<p><%=@post.public_access%></p>
-<p>Public access: <%=@post.public_access%></p>
-<p>Urgency level: 
-    <% case @post.urgency_level%>
-        <%when 1%>
-            None
-        <%when 2%>
-            Low
-        <%when 3%>
-            Medium
-        <%when 4%>
-            High
-        <%when 5%>
-            Urgent
-    <%end%>
-</p>
-<%=link_to "Edit Post", edit_post_path(@post) unless @write_privilege == false%>
+    <div class="flex headers">
+        <h1><%=@post.title%></h1>
 
-<div class="post_content">
-    <h2>Content: </h2>
-    <%=sanitize @markdown.render(@post.content)%>
+        <% if @write_privilege %>
+            <%=button_to "Edit Post", edit_post_path(@post),method: :get%>
+        <% elsif !@post.public_access %>
+            <p>Locked by <%=@post.owner_name%></p>
+        <%end%>
+    </div>
+
+    <div class="post_content">
+        <%=sanitize @markdown.render(@post.content)%>
+    </div>
+
+<hr>
+    <div>
+        <% if @user != nil%>
+        <h3> Manage Post </h3>
+            <div class='search'>
+            <%=form_for :copy,  as: "post", url: copy_post_path(@post) do |f|%>
+                Copy to a project: <%=f.collection_select :project_id, @projects, :id, :title%>
+                <%=f.submit "Copy"%>
+            <%end%>
+            </div>
+        <%end%>
+        <%=button_to "Delete Post", post_path(@post), data: {confirm: "Are you sure you would like to delete this post?"},method: :delete unless @write_privilege == false%>
+    </div>
 </div>
-
-<%=link_to "Delete", post_path(@post), method: :delete unless @write_privilege == false%>

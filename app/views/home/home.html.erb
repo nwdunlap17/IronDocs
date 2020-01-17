@@ -1,20 +1,21 @@
-<%=link_to "IronDocs™ Stats", 'stats/index'%>
 
-<br>
-<%=form_tag public_search_path do%>
-    <%=text_field_tag 'search'%>
-    <%=submit_tag "Search for Public Projects and Users"%>
-<%end%>
+<div class="container">
+    <div class="search">
+        <%=form_tag public_search_path do%>
+            <%=text_field_tag 'search'%>
+            <%=submit_tag "Search for Public Projects and Users"%>
+        <%end%>
+    </div>
 
 <% if @projects.count > 0 %>
-    <h3>Public Projects</h3>
+    <h2>Public Projects</h2>
     
     <% @projects.each do |p|%>
-        <ul>
-        <li>Title: <%= link_to p.title, project_path(p)%> - views: <%=p.views%></li>
-        <li>Description: <%=p.description%></li>
-        <hr>
-        </ul>
+        <dl class="dl-horizontal project">
+            <dt class="title"><h3><%= link_to p.title, project_path(p)%></h3></dt>
+            <dd>Views: <%=p.views%></dd>
+            <dd>Description: <%=p.description%></dd>
+        </dl>
     <%end%>
 
 <%end%>
@@ -25,3 +26,4 @@
         <li><%= link_to u.username, user_path(u)%></li>
     <%end%>
 <%end%>
+</div>

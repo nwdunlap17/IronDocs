@@ -1,14 +1,79 @@
-<%=flash[:alert_message]%>
+<div class="container">
 <h1><%=@user.username%>'s profile page</h1>
 
-<%=link_to "New Project", new_project_path%>
+<%if session[:user_id] == @user.id%>
+    <div class="search">
+        <%=form_tag search_own_files_path(@user) do %>
+            Search: <%=text_field_tag "search"%>
+            <%=submit_tag "Apply Search"%>
+        <%end%>
+    </div>
 
-<ul>
-<%@projects.each do |p|%>
-    <ul>
-        <li>Title: <%= link_to p.title, project_path(p)%></li>
-        <li>Description: <%=p.description%></li>
-        <hr>
-    </ul>
+    
+    <%if !@posts.empty?%>
+
+    <h3> Your Posts </h3>
+    <div class='card_menu'>
+        <%@posts.each do |post|%>
+        
+        <div class='card-container'>
+            <a href=<%=post_path(post)%> class='card_link' >
+        <div class="card">
+            <div class="card-body">
+
+            <%case post.urgency_level%>
+                <%when 1%>
+                    <%urgent_text = "No Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back no_priority'>
+                <%when 2%>
+                    <%urgent_text = "Low Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back low_priority'>
+                <%when 3%>
+                    <%urgent_text = "Medium Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back med_priority'>
+                <%when 4%>
+                    <%urgent_text = "High Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back high_priority'>
+                <%when 5%>
+                    <%urgent_text = "Urgent#{post.display_alert_date('-')}"%>
+                    <div class ='card_back urgent_priority'>
+            <%end%>
+
+
+                        <h3 class="card-title"><%=post.title%></h3>
+                    </div>
+                    <p class="card-text"><%=urgent_text%></p>
+                    <p class="card-text"><%=post.snippet%></p>
+                </div>
+                </div>
+            </a>
+            </div>
+        <%end%>    
+    </div>
+    <%end%>
+
+    <div class="flex">
+        <div>
+            <h3> Your Projects</h3>
+        </div>
+
+        <div class="create">
+            <%=button_to "New Project", new_project_path, method: :get%>
+        </div>
+    </div>
 <%end%>
-</ul>
+        
+
+<%@projects.each do |p|%>
+    <dl class="dl-horizontal project">
+        <dt class="title"><%= link_to p.title, project_path(p)%></dt>
+        <dd>Description: 
+            <%if p.description.empty?%>
+                This project does not have a description.
+            <%else%>
+                <%=p.description%>
+            <%end%>
+        </dd>
+    </dl>
+<%end%>
+</div>

@@ -27,9 +27,9 @@ class Post < ApplicationRecord
         if self.user_id == user_id 
             return true
         end
-
+        
         User.find(user_id).projects.each do |project|
-            if project.posts.include?(@post)
+            if project.posts.include?(self)
                 return true
             end
         end
@@ -49,5 +49,33 @@ class Post < ApplicationRecord
 
     def owner_name
         User.find(self.user_id).username
+    end
+
+    def check_alert
+        if self.alert_date != nil && !self.alerted
+            if self.alert_date <= Time.now
+                self.urgency_level = 5
+                self.alerted = true
+                self.save
+            end
+        end
+    end
+
+    def snippet
+        if self.content.length > 20
+            return "#{content.slice(0..17)}..."
+        elsif self.content.length == 0
+            return "No content..."
+        else
+            return content
+        end
+    end
+
+    def display_alert_date(prefix = '')
+        if self.alert_date == nil
+            return ''
+        else
+            return "#{prefix} #{self.alert_date.to_s}"
+        end
     end
 end

@@ -1,8 +1,15 @@
-<%=form_for @project do |p|%>
-    Title: <%=p.text_field :title%> <br>
-    Description <br> 
-    <%=p.text_area :description%> <br>
-    Allow anyone to view project: <%=p.check_box :public%> <br>
-    <%=hidden_field_tag "creator_id", value = params[:id]%>
-    <%=p.submit%>
-<%end%>
+<div class="container">
+    <div class="form-horizontal">
+    <%=form_for @project do |p|%>
+        Title: <%=p.text_field :title%> <br>
+        Description <br> 
+        <div class='description'>
+            <%=p.text_area :description%> <br>
+        </div>
+        Make project publicly visible: <%=p.check_box :public%> <br>
+        <%=hidden_field_tag "creator_id", value = params[:id]%>
+
+        <%=p.submit%>
+    <%end%>
+    </div>
+</div>

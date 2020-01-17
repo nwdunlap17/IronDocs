@@ -1,41 +1,90 @@
-<%if !cookies[:last_user_id] || cookies[:last_user_id] == session[:user_id] %>
+<%if !!cookies[:last_user_id] && cookies[:last_user_id] == session[:user_id] %>
     <%=link_to "Back to User", user_path(cookies[:last_user_id])%>
 <%end%>
 
-<%=flash[:alert_message]%>
-<h1>Project Title: <%=@project.title%> </h1>
+<div class="container">
+    <div class="flex show">
+        <div>
+            <h2><%=@project.title%> </h2>
+        </div>
+        
+        <div class="create">
+            <%=button_to "Edit Project", edit_project_path(@project), method: :get unless @write_privilege == false%>
+        </div>
+    </div>
+    <%if !(@project.description.empty?)%>
+        <h6><%=@project.description%></h6>
+    <%else%>
+        <p>This project does not have a description!</p>
+    <%end%>
 
-<h3>Description:
-<%if !(@project.description.empty?)%>
-    <%=@project.description%></h3>
-<%else%>
-    This project does not have a description!
-<%end%>
-</h3>
+    <div class="flex show">
+        <div>
+            <h3>Posts</h3>
+        </div>
+        <div class="create">
+            <%=button_to "New Post", new_post_path, method: :get unless @write_privilege == false%>
+        </div>
+    </div>
 
-<h3>Posts</h3>
-<%if !@posts.empty?%>
-    <ul>
+    <%if !@posts.empty?%>
+    <div class='card_menu'>
         <%@posts.each do |post|%>
-            <li><%=link_to post.title, post_path(post)%> - Urgency: <%=post.urgency_level%></li>
+        
+        <div class="card-container">
+        <a href=<%=post_path(post)%> class='card_link' >
+        <div class="card">
+            <div class="card-body">
+
+            <%case post.urgency_level%>
+                <%when 1%>
+                    <%urgent_text = "No Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back no_priority'>
+                <%when 2%>
+                    <%urgent_text = "Low Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back low_priority'>
+                <%when 3%>
+                    <%urgent_text = "Medium Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back med_priority'>
+                <%when 4%>
+                    <%urgent_text = "High Priority#{post.display_alert_date('-')}"%>
+                    <div class ='card_back high_priority'>
+                <%when 5%>
+                    <%urgent_text = "Urgent#{post.display_alert_date('-')}"%>
+                    <div class ='card_back urgent_priority'>
+            <%end%>
+
+
+                        <h3 class="card-title"><%=post.title%></h3>
+                    </div>
+                    <p class="card-text"><%=urgent_text%></p>
+                    <p class="card-text"><%=post.snippet%></p>
+            </div>
+        </div>
+        </div>
+        </a>
         <%end%>
-    </ul>
+    </div>
+        
 <%else%>
     <p>You don't have any posts yet!</p>
 <%end%>
 
 
-<h3>Collaborators</h2>
-<ul>
+<div class="flex">
+    <div>
+        <h3>Collaborators</h2>
+    </div>
+    <div class="create">
+        <%=button_to "Invite Collaborator", project_invite_path unless @write_privilege == false%>
+    </div>
+</div>
+<ul class="">
     <%@project.users.each do |user|%>
         <li><%=user.username%></li>
     <%end%>
 </ul>
-
-
-<div>
-    <p><%=link_to "New Post", new_post_path unless @write_privilege == false%></p>
-    </p><%=link_to "Invite Collaborator", project_invite_path unless @write_privilege == false%></p>
-    </p><%=link_to "Edit Project", edit_project_path(@project) unless @write_privilege == false%></p>
-    </p><%=link_to "Remove from My Projects", project_path(@project), method: :delete unless @write_privilege == false%></p>
+<div class=" btn-default right">
+    <%=button_to "Remove from My Projects", project_path(@project), :data => {:confirm => 'Are you sure you would like to delete this project from your account?'}, method: :delete unless @write_privilege == false%>
+</div>
 </div>

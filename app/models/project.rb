@@ -3,6 +3,7 @@ class Project < ApplicationRecord
     has_many :users, through: :project_users
     has_many :post_projects
     has_many :posts, through: :post_projects
+    validates :title, presence: true
 
     def sort_my_posts_by_urgency
         alpha_sort = self.posts.sort do |a, b|
@@ -37,9 +38,9 @@ class Project < ApplicationRecord
     end
 
     def self.average_num_posts
-        self.all.collect do |project|
+        (self.all.collect do |project|
             project.posts.length
-        end.sum / (self.num_projects * 1.0)
+        end.sum / (self.num_projects * 1.0)).round(2)
     end
 
     def self.average_num_users
@@ -74,5 +75,15 @@ class Project < ApplicationRecord
 
     def self.most_viewed_public_project
         self.sort_by_views.last
+    end
+
+    def update_post_alert_dates
+        self.posts.each do |post|
+            post.check_alert
+        end
+    end
+
+    def owner_name
+        User.find(self.user_id).name
     end
 end
